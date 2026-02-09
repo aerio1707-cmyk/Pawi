@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新消息 - Pawi 派怡寵物營養專家</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+    <div class="container">
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt="Pawi" class="brand-logo"></a>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="about.html">關於派怡</a></li>
+                <li><a href="index.html#products">營養品系列</a></li>
+                <li><a href="news.html">最新消息</a></li>
+            </ul>
+        </nav>
+    </div>
+    </header>
+
+    <section class="page-header" style="background: #FFF9F2; padding: 60px 0; text-align: center;">
+        <div class="container">
+            <h1 style="color: var(--primary-orange);">最新消息</h1>
+            <p>分享毛孩衛教知識與 Pawi 最新動態</p>
+        </div>
+    </section>
+
+    <main class="container" style="padding: 60px 20px;">
+        <div class="news-filter" style="display: flex; gap: 15px; margin-bottom: 40px; justify-content: center;">
+            <button class="filter-btn active">全部消息</button>
+            <button class="filter-btn">衛教小知識</button>
+            <button class="filter-btn">品牌活動</button>
+            <button class="filter-btn">公告資訊</button>
+        </div>
+
+        <div class="news-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+            
+            <article class="news-card">
+                <div class="news-img-box">
+                    <img src="images/news/news-01.jpg" alt="犬貓關節保養">
+                    <span class="news-tag">衛教小知識</span>
+                </div>
+                <div class="news-content">
+                    <time>2026-01-20</time>
+                    <h3>如何判斷狗狗關節不舒服？飼主必看的五大徵兆</h3>
+                    <p>隨著毛孩年齡增長，關節退化是不可忽視的問題。透過觀察走路姿勢與活動意願...</p>
+                    <a href="news-detail.html" class="read-more">閱讀全文 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card">
+                <div class="news-img-box">
+                    <img src="images/news/news-02.jpg" alt="春季限定活動">
+                    <span class="news-tag">品牌活動</span>
+                </div>
+                <div class="news-content">
+                    <time>2026-01-15</time>
+                    <h3>春季毛孩健康祭：全館益生菌系列限時 85 折</h3>
+                    <p>換季時節容易造成腸道敏感，Pawi 為您準備了專屬健康禮包，守護毛孩體質...</p>
+                    <a href="news-detail.html" class="read-more">閱讀全文 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card">
+                <div class="news-img-box">
+                    <img src="images/news/news-03.jpg" alt="貓咪排毛知識">
+                    <span class="news-tag">衛教小知識</span>
+                </div>
+                <div class="news-content">
+                    <time>2026-01-10</time>
+                    <h3>貓咪一直吐毛球怎麼辦？除了排毛粉，你還可以這樣做</h3>
+                    <p>貓咪舔毛是天性，但累積過多毛球會影響食慾。專業獸醫師分享日常照護邏輯...</p>
+                    <a href="news-detail.html" class="read-more">閱讀全文 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="pagination" style="display: flex; justify-content: center; gap: 10px; margin-top: 50px;">
+            <a href="#" class="page-link active">1</a>
+            <a href="#" class="page-link">2</a>
+            <a href="#" class="page-link">3</a>
+            <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+        </div>
+    </main>
+
+    <footer style="background: #5A4B40; color: #fff; padding: 60px 0 20px;">
+        <div class="container" style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
+        <div style="flex: 1; min-width: 250px;">
+            <h3 style="color: #FF9D42; margin-bottom: 20px;">Pawi 派怡</h3>
+            <p style="line-height: 1.6; color: #ccc;">專業研發犬貓保健食品，堅持天然無添加，用最純粹的營養守護毛孩的健康與快樂。</p>
+        </div>
+        
+        <div style="flex: 1; min-width: 150px;">
+            <h4 style="margin-bottom: 20px;">快速導覽</h4>
+            <ul style="list-style: none; padding: 0; line-height: 2;">
+                <li><a href="about.html" class="active" style="color: #ccc; text-decoration: none;">關於我們</a></li>
+                <li><a href="index.html#products" class="active" style="color: #ccc; text-decoration: none;">產品清單</a></li>
+                <li><a href="news.html" class="active" style="color: #ccc; text-decoration: none;">衛教知識</a></li>
+            </ul>
+        </div>
+        
+        <div style="flex: 1; min-width: 200px;">
+            <h4 style="margin-bottom: 20px;">聯絡我們</h4>
+            <p style="color: #ccc; margin-bottom: 10px;"><i class="fas fa-envelope" style="margin-right: 10px;"></i> service@pawi.com.tw</p>
+            <p style="color: #ccc;"><i class="fas fa-phone" style="margin-right: 10px;"></i> 02-1234-5678</p>
+            <div style="margin-top: 20px;">
+                <a href="#" style="color: #fff; font-size: 1.5rem; margin-right: 15px;"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: #fff; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        </div>
+    
+        <div style="text-align: center; border-top: 1px solid #6d5d52; margin-top: 40px; padding-top: 20px; font-size: 0.8rem; color: #aaa;">
+        &copy; 2026 Pawi 派怡寵物營養專家 版權所有
+        </div>
+    </footer>
+
+</body>
+</html>
