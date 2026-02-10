@@ -1060,3 +1060,72 @@ body {
     from { transform: scale(0.7); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+
+/* --- 手機版自定義優化 --- */
+@media (max-width: 768px) {
+    /* 1. 導覽列優化：縮小 Logo 並處理選單擁擠問題 */
+    .navbar .container {
+        flex-direction: column; /* 讓 Logo 與選單垂直排列，避免擠在一起 */
+        gap: 10px;
+    }
+    .brand-logo {
+        height: 50px; /* 縮小手機版 Logo 高度 */
+    }
+    .nav-menu ul {
+        gap: 5px; /* 縮小選單字體間距 */
+        padding: 0;
+    }
+    .nav-menu ul li a {
+        padding: 5px 10px;
+        font-size: 0.9rem; /* 稍微縮小字體 */
+    }
+
+    /* 2. Banner 與標題優化 */
+    .hero-banner {
+        height: 400px; /* 縮減 Banner 高度 */
+        border-radius: 0 0 40px 40px; /* 圓角適度縮小 */
+    }
+    .hero-overlay h1, 
+    .text-side h2 {
+        font-size: 1.8rem; /* 縮小大標題，避免破壞比例 */
+        line-height: 1.4;
+    }
+
+    /* 3. 產品卡片與網格 */
+    .product-section {
+        padding: 40px 15px; /* 減少上下內距 */
+    }
+    .product-grid {
+        gap: 20px;
+    }
+    .product-card {
+        flex: 0 1 100%; /* 手機版改為單欄顯示，更易閱讀 */
+        max-width: 100%;
+    }
+
+    /* 4. 安心保證區塊 (Trust Section) */
+    .trust-grid {
+        grid-template-columns: 1fr; /* 強制單欄排列 */
+        gap: 30px;
+    }
+    .trust-icon-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* 5. 頁籤與詳情頁優化 */
+    .tab-header {
+        overflow-x: auto; /* 讓分頁標籤在手機版可以左右滑動，不換行 */
+        white-space: nowrap;
+        padding-bottom: 10px;
+    }
+    .tab-btn {
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+    
+    /* 6. 圖片容器圓角微調 */
+    .image-wrapper img, .news-card {
+        border-radius: 20px;
+    }
+}
