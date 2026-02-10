@@ -1061,69 +1061,90 @@ body {
     to { transform: scale(1); opacity: 1; }
 }
 
-/* --- 手機版最終優化修正 (針對 IMG_4559/4560 問題) --- */
+/* --- 深度修正：解決垂直觀看時的換行問題 --- */
 @media (max-width: 768px) {
-    /* 1. 修正導覽列：讓 Logo 居中並縮小文字，營造精緻感 */
+    /* 1. 導覽列極致優化：強制單行顯示或優雅間距 */
     .navbar {
-        padding: 10px 0;
+        padding: 8px 0;
     }
     .navbar .container {
-        flex-direction: column; /* 垂直排列 */
-        gap: 8px;
+        flex-direction: column; 
+        align-items: center;
+        padding: 0 10px;
     }
     .brand-logo {
-        height: 45px !important; /* 縮小 Logo，避免壓迫下方內容 */
-        margin-bottom: 5px;
+        height: 40px !important; /* 進一步縮小 Logo 高度 */
+        margin-bottom: 8px;
+    }
+    .nav-menu {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
     .nav-menu ul {
-        justify-content: center;
+        display: flex;
+        justify-content: space-between; /* 均勻分配空間 */
         width: 100%;
+        max-width: 350px; /* 限制選單總寬度，避免貼邊 */
+        gap: 0; 
         padding: 0;
     }
-    .nav-menu ul li a {
-        padding: 5px 8px;
-        font-size: 0.85rem; /* 降低字體大小，避免換行感 */
-        letter-spacing: 0px;
-    }
-
-    /* 2. 修正圖片與標題間距：解決「OUR VISION」區塊過空的問題 */
-    .about-section {
-        padding: 30px 20px; /* 大幅縮減區塊上下內距 */
-    }
-    .image-wrapper {
-        padding: 0; /* 移除圖片外圍多餘空間 */
-        margin-bottom: 20px;
-    }
-    .image-wrapper img {
-        border-radius: 25px; /* 手機版圓角不宜過大，25px 較為俐落 */
-    }
-    
-    .text-side {
+    .nav-menu ul li {
+        flex: 1;
         text-align: center;
     }
-    .text-side .sub-title {
-        font-size: 0.9rem;
-        margin-bottom: 5px; /* 緊貼下方大標題 */
-    }
-    .text-side h2 {
-        font-size: 1.6rem; /* 縮小大標題，解決 IMG_4559 文字過大問題 */
-        margin-bottom: 15px;
-        line-height: 1.3;
+    .nav-menu ul li a {
+        padding: 5px 2px;
+        font-size: 0.8rem; /* 降低至 12.8px 左右，確保單行不換行 */
+        white-space: nowrap; /* 強制禁止換行 */
+        letter-spacing: -0.5px; /* 稍微縮小字距 */
+        display: block;
     }
 
-    /* 3. 最新消息標籤列優化 (修正 IMG_4560 橘色膠囊排列) */
+    /* 2. 標題字體響應式修正 (針對 IMG_4561) */
+    .text-side h2, 
+    .hero-content h1,
+    section h2 {
+        font-size: 1.5rem !important; /* 強制縮小大標題，解決斷句問題 */
+        line-height: 1.4;
+        margin-bottom: 12px;
+        word-break: keep-all; /* 確保中文詞彙盡量不被拆散 */
+        padding: 0 10px;
+    }
+
+    /* 3. 內文與副標題修正 */
+    .text-side .sub-title {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+    }
+    .content-p p {
+        font-size: 0.95rem; /* 內文稍微縮小，增加閱讀舒適度 */
+        line-height: 1.6;
+        padding: 0 5px;
+    }
+
+    /* 4. 最新消息標籤列 (針對 IMG_4560) */
     .filter-group {
-        gap: 8px;
-        margin-bottom: 25px;
-        flex-wrap: wrap; /* 確保按鈕在極窄螢幕會整齊換行 */
+        display: flex;
+        overflow-x: auto; /* 標籤太多時允許橫向滑動 */
+        justify-content: flex-start;
+        padding: 10px 0;
+        -webkit-overflow-scrolling: touch;
+        gap: 10px;
     }
     .filter-btn {
+        flex: 0 0 auto; /* 禁止按鈕被壓縮 */
         padding: 6px 15px;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
+}
 
-    /* 4. 移除多餘色塊背景 */
-    .image-wrapper::after {
-        display: none !important; /* 在手機版完全移除米色裝飾塊，避免版面錯位 */
+/* 針對極窄手機（如 iPhone SE）的額外微調 */
+@media (max-width: 375px) {
+    .nav-menu ul li a {
+        font-size: 0.75rem;
+    }
+    .text-side h2 {
+        font-size: 1.35rem !important;
     }
 }
