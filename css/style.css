@@ -1,22 +1,56 @@
+/* Pawi (派怡) 官方網站 - 核心樣式表
+    版本：V2.1 (修正全站頁面排版不統一問題)
+*/
+
 /* --- 基礎變數設定 --- */
 :root {
-    --primary-orange: #FF9D42;  /* 主色：橘色 */
-    --secondary-yellow: #FFF9F2; /* 輔色：淺米黃 */
-    --text-color: #5A4B40;      /* 文字色：深咖啡 */
+    --primary-orange: #FF9D42;  /* 主色：暖橘 */
+    --secondary-yellow: #FFF9F2; /* 輔色：淺米黃背景 */
+    --text-color: #5A4B40;      /* 文字色：親和咖啡 */
+    --text-light: #888;
     --white: #FFFFFF;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* --- 全域設定 --- */
+* { box-sizing: border-box; }
+
 body {
     font-family: 'Noto Sans TC', sans-serif;
     color: var(--text-color);
     background-color: var(--white);
     margin: 0;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* 漢堡按鈕 (預設隱藏，手機版顯示) */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+img { max-width: 100%; height: auto; }
+
+/* --- 導覽列與漢堡選單 --- */
+.navbar {
+    background: var(--white);
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img { height: 45px; display: block; }
+
 .menu-toggle {
     display: none;
     background: none;
@@ -25,30 +59,8 @@ body {
     color: var(--primary-orange);
     cursor: pointer;
     z-index: 2001;
-    padding: 10px;
 }
 
-/* 背景遮罩 */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(90, 75, 64, 0.4); /* 使用深咖啡色透明度 */
-    backdrop-filter: blur(4px);
-    display: none;
-    z-index: 1500;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.menu-overlay.active {
-    display: block;
-    opacity: 1;
-}
-
-/* 桌機版導覽選單 */
 .nav-menu ul {
     display: flex;
     list-style: none;
@@ -64,86 +76,131 @@ body {
     transition: var(--transition);
 }
 
-.nav-menu ul li a:hover {
+.nav-menu ul li a:hover, .nav-menu ul li a.active {
     color: var(--primary-orange);
 }
 
-/* --- 手機版響應式 (max-width: 768px) --- */
+/* --- 手機版選單動畫 --- */
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block; /* 顯示漢堡按鈕 */
-    }
-
+    .menu-toggle { display: block; }
     .nav-menu {
         position: fixed;
         top: 0;
-        right: -100%; /* 隱藏在右側 */
+        right: -100%;
         width: 280px;
         height: 100vh;
         background: var(--white);
         box-shadow: -10px 0 30px rgba(0,0,0,0.1);
         z-index: 2000;
         transition: var(--transition);
-        padding-top: 80px; /* 避開 Logo 位置 */
+        padding-top: 80px;
     }
-
-    .nav-menu.active {
-        right: 0; /* 滑入 */
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .nav-menu ul li a {
-        font-size: 1.2rem;
+    .nav-menu.active { right: 0; }
+    .nav-menu ul { flex-direction: column; align-items: center; gap: 15px; }
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        text-align: center;
-        display: block;
-        padding: 15px 0;
+        height: 100%;
+        background: rgba(90, 75, 64, 0.4);
+        backdrop-filter: blur(4px);
+        display: none;
+        z-index: 1500;
     }
+    .menu-overlay.active { display: block; }
 }
 
-/* --- 其他原本的組件樣式保留並優化 --- */
-.trust-section {
-    background-color: var(--secondary-yellow);
-    padding: 80px 0;
-    margin-top: 40px;
-}
-
-.trust-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
+/* --- 頁面標題區塊 (Page Header) - 針對 About/News/Report --- */
+.page-header {
+    background: var(--secondary-yellow);
+    padding: 60px 0;
     text-align: center;
+    margin-bottom: 40px;
 }
 
-.trust-icon-wrapper {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-    background: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 20px rgba(255, 157, 66, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.trust-icon-wrapper img {
-    width: 60%;
-    height: auto;
-}
-
-.trust-item:hover .trust-icon-wrapper {
-    transform: scale(1.1) rotate(5deg);
-}
-
-.trust-item h4 {
-    color: var(--text-color);
-    font-size: 1.3rem;
+.page-header h1 {
+    color: var(--primary-orange);
+    font-size: 2.5rem;
+    font-family: 'ZCOOL Quanyi', sans-serif;
     margin-bottom: 10px;
 }
+
+/* --- 按鈕樣式 --- */
+.btn-primary {
+    display: inline-block;
+    background: var(--primary-orange);
+    color: var(--white);
+    padding: 12px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 157, 66, 0.3);
+}
+
+/* --- 新聞列表卡片 (News Page) --- */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.news-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+.news-card:hover { transform: translateY(-10px); }
+
+.news-card-img { height: 200px; background: #eee; overflow: hidden; }
+.news-card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.news-card-content { padding: 25px; }
+.news-card-content h3 { margin: 0 0 15px 0; color: var(--text-color); }
+.news-date { color: var(--text-light); font-size: 0.9rem; margin-bottom: 10px; display: block; }
+
+/* --- 安心檢驗報告 (Report Page) --- */
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.report-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    text-align: center;
+    border: 1px solid #f9f9f9;
+}
+
+/* --- 頁尾 Footer --- */
+footer {
+    background: var(--text-color);
+    color: var(--white);
+    padding: 60px 0 20px;
+    margin-top: 80px;
+}
+
+.footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: space-between;
+}
+
+.footer-col { flex: 1; min-width: 250px; }
+.footer-col h4 { color: var(--primary-orange); margin-bottom: 20px; }
+.footer-col ul { list-style: none; padding: 0; line-height: 2; }
+.footer-col ul li a { color: #ccc; text-decoration: none; }
