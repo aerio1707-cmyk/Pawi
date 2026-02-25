@@ -1,104 +1,5 @@
 /* Pawi (派怡) 官方網站 - 核心樣式表 V2.4 (最終修復版) */
 
-:root {
-    --primary-orange: #FF9D42;
-    --secondary-yellow: #FFF9F2;
-    --text-color: #5A4B40;
-    --white: #FFFFFF;
-}
-
-/* --- 導覽列 --- */
-.navbar {
-    background: var(--white);
-    padding: 10px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar .container { display: flex; justify-content: space-between; align-items: center; }
-
-/* 漢堡按鈕 - 確保絕對層級 */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.6rem;
-    color: var(--primary-orange);
-    cursor: pointer;
-    position: relative;
-    z-index: 3001; /* 最高層級 */
-    padding: 10px;
-}
-
-/* 導覽選單 (桌機) */
-.nav-menu ul { display: flex; list-style: none; margin: 0; padding: 0; }
-.nav-menu ul li a { text-decoration: none; padding: 10px 20px; color: var(--text-color); font-weight: 500; }
-
-/* 背景遮罩層 - 移除模糊濾鏡，僅保留半透明色塊 */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* 純黑色半透明，避開模糊干擾 */
-    display: none;
-    z-index: 2000; /* 低於選單，高於內容 */
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.menu-overlay.active {
-    display: block;
-    opacity: 1;
-}
-
-/* --- 手機版響應式 --- */
-@media (max-width: 768px) {
-    .menu-toggle { display: block; }
-
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%; 
-        width: 280px;
-        height: 100vh;
-        background-color: #FFFFFF !important; /* 確保選單本身不透明 */
-        box-shadow: -5px 0 20px rgba(0,0,0,0.15);
-        z-index: 3000; /* 高於遮罩 */
-        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        padding-top: 80px;
-        visibility: hidden; /* 防止隱藏時被點擊 */
-    }
-
-    .nav-menu.active {
-        right: 0;
-        visibility: visible;
-    }
-
-    /* 針對選單內的列表優化 */
-    .nav-menu ul { flex-direction: column; width: 100%; }
-    .nav-menu ul li { width: 100%; border-bottom: 1px solid #f5f5f5; }
-    .nav-menu ul li a { 
-        display: block; 
-        padding: 20px; 
-        text-align: center; 
-        font-size: 1.1rem; 
-        color: var(--text-color);
-    }
-}
-
-/* 當選單開啟時，將主體模糊化（由 body 控制） */
-body.menu-open main, 
-body.menu-open section, 
-body.menu-open footer {
-    filter: blur(5px);
-    pointer-events: none; /* 防止點擊到底層內容 */
-}
-
-
 /*色彩一致性：加入了rgba(255, 157, 66, 0.1)的陰影，這會讓網頁與橘色系的產品圖產生視覺共鳴。
 圖片填充：使用object-fit: contain是因為保健食品的罐子通常有固定形狀，這樣可以確保標題與Logo不會被切掉。*/
 
@@ -1012,3 +913,128 @@ body {
 }
 
 .feeding-notice-box i { color: var(--primary-orange); font-size: 1.5rem; }
+
+/* Pawi (派怡) 核心樣式表 - 漢堡選單修復與視覺優化版 */
+
+:root {
+    --primary-orange: #FF9D42;
+    --secondary-yellow: #FFF9F2;
+    --text-color: #5A4B40;
+    --white: #FFFFFF;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- 導覽列優化 --- */
+.navbar {
+    background: var(--white);
+    padding: 10px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 2000; /* 提升導覽列層級 */
+}
+
+.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+
+.brand-logo { height: 60px; width: auto; transition: var(--transition); }
+
+/* 漢堡按鈕 - 確保在最頂層 */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--primary-orange);
+    cursor: pointer;
+    position: relative;
+    z-index: 4000; /* 高於所有層級 */
+    padding: 10px;
+}
+
+/* 導覽選單 (桌機) */
+.nav-menu ul { display: flex; list-style: none; margin: 0; padding: 0; }
+.nav-menu ul li a { 
+    text-decoration: none; 
+    padding: 10px 20px; 
+    color: var(--text-color); 
+    font-weight: 500;
+    transition: var(--transition);
+}
+.nav-menu ul li a:hover { color: var(--primary-orange); }
+
+/* 背景遮罩層 */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(90, 75, 64, 0.4); /* 使用深咖啡色調的遮罩 */
+    backdrop-filter: blur(4px); /* 僅在遮罩背景套用模糊 */
+    display: none;
+    z-index: 3000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* --- 行動版響應式設計 --- */
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%; 
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--white);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        z-index: 3500; /* 介於遮罩與按鈕之間 */
+        padding: 80px 20px 40px;
+        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        visibility: hidden;
+    }
+
+    .nav-menu.active {
+        right: 0;
+        visibility: visible;
+    }
+
+    .nav-menu ul { flex-direction: column; width: 100%; }
+    .nav-menu ul li { width: 100%; margin-bottom: 10px; }
+    .nav-menu ul li a { 
+        display: block; 
+        padding: 15px; 
+        text-align: left;
+        border-radius: 15px;
+        font-size: 1.1rem;
+    }
+    .nav-menu ul li a:hover { background: var(--secondary-yellow); }
+}
+
+/* 修復：當選單開啟時，禁止主體捲動 */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* 其他全域視覺標準 (繼承並優化) */
+body { font-family: 'Noto Sans TC', sans-serif; color: var(--text-color); line-height: 1.6; margin: 0; }
+.btn-primary {
+    background: var(--primary-orange);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 157, 66, 0.3); }
