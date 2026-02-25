@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* 這裡保留您原本在 HTML 中的補強樣式，但移動端選單將由 style.css 控制 */
         body { margin: 0; padding: 0; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         
@@ -51,8 +50,8 @@
             <div class="logo">
                 <a href="index.html"><img src="images/logo.png" alt="Pawi" class="brand-logo"></a>
             </div>
-            
-            <button class="menu-toggle" id="menuToggle">
+        
+            <button class="menu-toggle" id="menuToggle" aria-label="切換選單">
                 <i class="fas fa-bars"></i>
             </button>
 
@@ -181,8 +180,6 @@
             &copy; 2026 Pawi 派怡寵物營養專家 版權所有
         </div>
     </footer>
-    
-    <div class="menu-overlay" id="menuOverlay"></div>
     <script src="js/main.js"></script>
 </body>
 </html>
