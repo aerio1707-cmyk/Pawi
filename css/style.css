@@ -914,8 +914,6 @@ body {
 
 .feeding-notice-box i { color: var(--primary-orange); font-size: 1.5rem; }
 
-
-
 /* Pawi (派怡) 官方網站 - 核心樣式表 V2.5 (漢堡選單修復版) */
 
 :root {
@@ -1039,3 +1037,21 @@ body.menu-open {
 .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: center; }
 .trust-icon-wrapper { width: 120px; height: 120px; margin: 0 auto 20px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
 .trust-icon-wrapper img { width: 100%; height: auto; }
+
+/* ================================================
+   === 漢堡選單 Z-INDEX 最終修復區塊（新增）===
+   ================================================
+   僅在此處新增，不影響任何原有功能
+   解決：選單從右滑出後模糊、無法點擊、被遮罩蓋住的問題
+*/
+.navbar {
+    z-index: 4000 !important;
+}
+
+.menu-overlay {
+    z-index: 2500 !important;
+}
+
+.nav-menu {
+    z-index: 4500 !important;
+}
