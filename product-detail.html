@@ -12,25 +12,27 @@
 <body>
 
     <header class="navbar">
-        <div class="container">
-            <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt="Pawi" class="brand-logo"></a>
-            </div>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo.png" alt="Pawi" class="brand-logo"></a>
+                </div>
         
-        <button class="mobile-menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
-        </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="切換選單">
+                    <i class="fas fa-bars"></i>
+                </button>
 
-        <nav class="nav-menu" id="navMenu">
-            <ul>
-                <li><a href="index.html">首頁</a></li>
-                <li><a href="about.html">關於派怡</a></li>
-                <li><a href="index.html#products">營養品系列</a></li>
-                <li><a href="news.html">最新消息</a></li>
-            </ul>
-        </nav>
-        </div>
-    </header>
+                <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="about.html">關於派怡</a></li>
+                    <li><a href="index.html#products">營養品系列</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                </ul>
+                </nav>
+            </div>
+     </header>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <main class="container" style="padding: 60px 20px;">
         <div class="product-detail-grid" style="display: flex; flex-wrap: wrap; gap: 50px; align-items: flex-start;">
@@ -166,15 +168,30 @@
             <div id="tab3" class="tab-content">
                 <div class="report-summary-box">
                     <div class="report-visual" style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div class="report-thumb" style="border: 1px solid #ddd; padding: 10px; border-radius: 10px; background: #fff;">
-                            <img src="images/reports/report-sgs-joint.jpg" alt="SGS 檢驗報告" style="width: 150px; height: auto; cursor: zoom-in;">
-                            <p style="font-size: 0.8rem; text-align: center; margin-top: 5px; color: #666;">SGS 重金屬檢測</p>
+                        <div class="safety-item">
+                            <div class="safety-icon"><i class="fas fa-shield-alt"></i></div>
+                            <span>重金屬檢驗合格</span>
+                        </div>
+                        <div class="safety-item">
+                            <div class="safety-icon"><i class="fas fa-vial"></i></div>
+                            <span>無農藥殘留</span>
+                        </div>
+                        <div class="safety-item">
+                            <div class="safety-icon"><i class="fas fa-microbe"></i></div>
+                            <span>微生物指標正常</span>
                         </div>
                     </div>
-                    <div class="report-text">
-                        <h3>嚴格把關，數據透明</h3>
-                        <p>本產品已通過 SGS 重金屬、微生物及農藥殘留檢驗，符合國家安全標準。</p>
-                        <a href="report.html" class="btn-outline">查看完整報告 <i class="fas fa-external-link-alt"></i></a>
+                    <div class="report-main-box">
+                        <div class="report-gallery-wall">
+                            <div class="report-preview-card">
+                                <img src="images/reports/report-sgs-01.jpg" alt="SGS 重金屬檢驗合格報告">
+                                <div class="preview-overlay"><i class="fas fa-search-plus"></i></div>
+                            </div>
+                            <div class="report-preview-card">
+                                <img src="images/reports/report-sgs-02.jpg" alt="SGS 農藥殘留檢測報告">
+                                <div class="preview-overlay"><i class="fas fa-search-plus"></i></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -212,6 +229,12 @@
         &copy; 2026 Pawi 派怡寵物營養專家 版權所有
         </div>
     </footer>
-    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <div id="pawiLightbox" class="modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="imgFullView">
+        <div id="modalCaption"></div>
+    </div>
+    <script src="js/main.js"></script>
 </body>
 </html>

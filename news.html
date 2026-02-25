@@ -10,21 +10,28 @@
 </head>
 <body>
 
-    <header class="navbar">
-    <div class="container">
-        <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt="Pawi" class="brand-logo"></a>
-        </div>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="index.html">首頁</a></li>
-                <li><a href="about.html">關於派怡</a></li>
-                <li><a href="index.html#products">營養品系列</a></li>
-                <li><a href="news.html">最新消息</a></li>
-            </ul>
-        </nav>
-    </div>
-    </header>
+        <header class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo.png" alt="Pawi" class="brand-logo"></a>
+                </div>
+        
+            <button class="menu-toggle" id="menuToggle" aria-label="切換選單">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="about.html">關於派怡</a></li>
+                    <li><a href="index.html#products">營養品系列</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                </ul>
+            </nav>
+            </div>
+        </header>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <section class="page-header" style="background: #FFF9F2; padding: 60px 0; text-align: center;">
         <div class="container">
@@ -123,6 +130,6 @@
         &copy; 2026 Pawi 派怡寵物營養專家 版權所有
         </div>
     </footer>
-
+    <script src="js/main.js"></script>
 </body>
 </html>
