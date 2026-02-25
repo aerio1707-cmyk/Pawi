@@ -1376,83 +1376,86 @@ body.menu-open {
     }
 }
 
+/* ================================================
+   === 手機版最終美化版 V3 (大型購物網站風格) ===
+   ================================================ */
+
 @media (max-width: 768px) {
 
-    /* 1. 通用按鈕美化（所有頁面按鈕都適用） */
+    /* ==================== 1. 通用按鈕美化 ==================== */
     .btn-primary {
         width: 100% !important;
-        max-width: 100% !important;
         height: 56px !important;
-        padding: 0 24px !important;
-        font-size: 1.15rem !important;
+        font-size: 1.18rem !important;
         font-weight: 700 !important;
         border-radius: 9999px !important;
-        display: block !important;
-        text-align: center !important;
-        box-shadow: 0 4px 15px rgba(255, 157, 66, 0.3) !important;
+        padding: 0 20px !important;
+        box-shadow: 0 4px 15px rgba(255,157,66,0.35) !important;
+        letter-spacing: 0.5px !important;
     }
 
-    /* 2. 產品頁 - 數量輸入框 + 加入購物車（IMG_9228 & IMG_9230） */
-    .product-purchase-box > div:last-child,          /* 數量與按鈕的容器 */
-    [style*="display: flex; gap: 15px"] {            /* 針對 inline flex */
+    /* ==================== 2. 數量輸入框優化 (解決太長問題) ==================== */
+    .quantity-cart-row {
+        display: flex !important;
         flex-direction: column !important;
-        gap: 16px !important;
-        align-items: stretch !important;
+        gap: 14px !important;
+        align-items: center !important;
     }
 
     input[type="number"] {
-        width: 80px !important;
+        width: 72px !important;
         height: 52px !important;
-        margin: 0 auto !important;
-        font-size: 1.25rem !important;
+        font-size: 1.35rem !important;
         text-align: center !important;
+        border: 2px solid #e5e5e5 !important;
         border-radius: 12px !important;
-        border: 2px solid #ddd !important;
+        margin: 0 auto !important;
     }
 
-    /* 3. 關於我們頁按鈕（IMG_9229） */
+    /* ==================== 3. 關於我們頁按鈕優化 ==================== */
     .about-col.text-side .btn-primary {
-        max-width: 320px !important;
-        margin: 24px auto 0 !important;
+        max-width: 280px !important;
+        margin: 28px auto 0 !important;
+        font-size: 1.12rem !important;
     }
 
-    /* 4. 產品頁整體簡潔大方（IMG_9231） */
+    /* ==================== 4. 產品詳情頁整體簡潔大方 ==================== */
     .product-detail-grid {
-        gap: 32px !important;
+        gap: 36px !important;
     }
     .product-purchase-box {
-        padding: 28px 20px !important;
-        border-radius: 28px !important;
+        padding: 32px 20px !important;
+        border-radius: 32px !important;
+        background: #fff !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.07) !important;
     }
     .product-purchase-box h1 {
-        font-size: 1.85rem !important;
-        line-height: 1.3 !important;
+        font-size: 1.92rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 12px !important;
     }
     .price-box {
-        margin: 20px 0 !important;
+        margin: 24px 0 28px !important;
+        text-align: center !important;
     }
     .price-box span {
-        font-size: 2.6rem !important;
+        font-size: 2.65rem !important;
         font-weight: 700 !important;
     }
     .product-purchase-box ul {
-        gap: 14px !important;
-        font-size: 1.05rem !important;
+        margin-bottom: 32px !important;
     }
     .product-purchase-box ul li {
-        padding-left: 4px !important;
+        font-size: 1.06rem !important;
+        padding: 6px 0 !important;
     }
 
-    /* 5. 通用留白與文字優化 */
+    /* 通用容器優化 */
     .container {
-        padding: 0 12px !important;
+        padding: 0 14px !important;
     }
     main.container, section.container {
-        padding: 36px 0 !important;
-    }
-    p {
-        font-size: 1.02rem !important;
-        line-height: 1.75 !important;
+        padding: 40px 0 !important;
     }
 }
 
@@ -1460,4 +1463,95 @@ body.menu-open {
     display: flex;
     gap: 12px;
     align-items: center;
+}
+
+/* ================================================
+   === 手機版對齊最終強制修正 (V4 - 根治左空白+右偏) ===
+   ================================================ */
+
+@media (max-width: 768px) {
+
+    /* 強制所有主要容器填滿畫面，消除左側大空白 */
+    .container,
+    main.container,
+    section.container,
+    .product-detail-grid,
+    .about-section,
+    .page-header,
+    .product-purchase-box,
+    .about-row,
+    article {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 所有有 inline padding 的地方強制壓到最小 */
+    [style*="padding"] {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    /* 文字內容強制置中或填滿 */
+    .product-purchase-box,
+    .about-col.text-side,
+    .news-card .news-content,
+    .page-header .container > div,
+    main > div,
+    section > div {
+        text-align: center !important;
+        margin: 0 auto !important;
+        padding: 0 14px !important;
+        width: 100% !important;
+    }
+
+    /* 按鈕統一處理（解決右偏 + 字體不匹配） */
+    .btn-primary {
+        width: 90% !important;
+        max-width: 320px !important;
+        margin: 24px auto !important;
+        display: block !important;
+        height: 56px !important;
+        font-size: 1.18rem !important;
+        font-weight: 700 !important;
+        border-radius: 999px !important;
+        letter-spacing: 0.8px !important;
+    }
+
+    /* 數量 + 按鈕 → 水平排列 + 輸入框靠左、按鈕拉滿 */
+    .quantity-cart-row {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 12px !important;
+        justify-content: flex-start !important;
+    }
+
+    .quantity-cart-row input[type="number"] {
+        width: 70px !important;
+        height: 50px !important;
+        font-size: 1.3rem !important;
+        text-align: center !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    .quantity-cart-row .btn-primary {
+        flex: 1 !important;
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+        height: 50px !important;
+        font-size: 1.1rem !important;
+    }
+
+    /* 額外安全網：任何 flex 容器都強制填滿 */
+    [style*="display: flex"] {
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
 }
