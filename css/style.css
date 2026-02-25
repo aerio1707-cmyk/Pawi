@@ -35,6 +35,65 @@ body {
         --container-padding: 12px;
         padding: 0 var(--container-padding);
     }
+    .news-filter {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;   /* 置中對齊 */
+    gap: 12px 10px !important;            /* 行列間距更舒適 */
+    padding: 16px 0 !important;
+    margin: 0 -4px !important;            /* 補償外層可能的 padding */
+  }
+
+  .news-filter button,
+  .news-filter .filter-btn {              /* 假設使用 button 或 .filter-btn class */
+    flex: 1 1 45% !important;             /* 每顆約佔 45%，保證兩欄 */
+    min-width: 140px !important;          /* 避免太窄 */
+    max-width: 48% !important;
+    padding: 12px 16px !important;        /* 加大觸控區 */
+    font-size: 0.95rem !important;
+    border-radius: 50px !important;
+    white-space: nowrap !important;       /* 避免文字換行 */
+    text-align: center !important;
+  }
+
+  /* 如果未來增加到 5 個以上，按鈕會自動變三欄或更多，彈性好 */
+
+  /* 假設這兩個元素在同一個 flex 容器內，例如 .product-purchase-box > div */
+  .product-purchase-box > div:last-child,               /* 通常是最後的數量+按鈕行 */
+  [style*="display: flex; gap: 15px"],                  /* 針對 inline style 的 flex 容器 */
+  .quantity-and-cart {
+    flex-direction: column !important;                  /* 改垂直排列 */
+    gap: 16px !important;
+    align-items: stretch !important;                    /* 拉滿寬度 */
+  }
+
+  /* 數量輸入框 */
+  input[type="number"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 52px !important;
+    font-size: 1.1rem !important;
+    text-align: center !important;
+    padding: 0 16px !important;
+    border-radius: 12px !important;
+  }
+
+  /* 加入購物車按鈕 */
+  .btn-primary {
+    width: 100% !important;
+    height: 54px !important;
+    font-size: 1.1rem !important;
+    padding: 0 20px !important;
+    border-radius: 50px !important;
+  }
+
+  /* 如果有數量標籤或 +/- 按鈕，可再加大 */
+  .quantity-controls button {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.2rem !important;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -1374,4 +1433,23 @@ body.menu-open {
         margin: 0 !important;
         display: block;
     }
+}
+
+@media (max-width: 768px) {
+  .btn-primary {
+    width: 100% !important;               /* 強制滿版寬度 */
+    max-width: 100% !important;
+    margin: 20px auto !important;         /* 上下間距 + 自動左右置中 */
+    padding: 14px 24px !important;        /* 稍微加大觸控區，但不溢出 */
+    box-sizing: border-box !important;
+    font-size: 1.05rem !important;
+    border-radius: 50px !important;       /* 保持圓角 */
+    display: block !important;            /* 確保是塊級元素 */
+    text-align: center !important;
+  }
+
+  /* 如果 about 頁的「探索營養品」有特定 class 或父元素，可再精準一點 */
+  .about-col.text-side .btn-primary {
+    max-width: 320px !important;          /* 限制最大寬，避免過寬 */
+  }
 }
