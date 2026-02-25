@@ -1195,3 +1195,102 @@ body.menu-open {
     .price-box span { font-size: 2.1rem !important; }
     .news-img-box img { height: 160px !important; }
 }
+
+/* ================================================
+   === 手機端「白邊/未對齊」全面修復 (第2輪) ===
+   ================================================ */
+
+@media (max-width: 768px) {
+
+    /* 強制所有 .container 縮減左右邊距，讓內容更撐滿畫面 */
+    .container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 針對 main / section 的額外 padding 覆蓋（很多頁面有 inline style 60px 20px） */
+    main.container,
+    section.container,
+    .about-section.container,
+    .product-detail-grid,
+    .news-grid {
+        padding: 32px 0 !important;   /* 上下維持合理，左右強制 0 + 靠 container 控制 */
+    }
+
+    /* page-header 常見的白邊問題 */
+    .page-header {
+        padding: 50px 0 !important;
+        margin: 0 !important;
+    }
+    .page-header .container {
+        padding: 0 12px !important;
+    }
+
+    /* 文字內容強制置中 + 避免過寬溢出 */
+    .about-col.text-side,
+    .product-purchase-box,
+    article,
+    .news-card .news-content,
+    .page-header p,
+    .page-header h1 {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 100% !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    /* 產品詳情頁常見的「左白右白」或標題偏左 */
+    .product-detail-grid {
+        padding: 0 !important;
+    }
+    .product-purchase-box {
+        margin: 0 auto !important;
+        max-width: 100% !important;
+        padding: 24px 16px !important;
+    }
+
+    /* 關於我們頁的文字段落 */
+    .about-section .content-p p {
+        padding: 0 4px !important;
+        text-align: justify !important;  /* 中文建議用 justify 更美觀 */
+    }
+
+    /* 新聞頁濾鏡按鈕與卡片 */
+    .news-filter {
+        padding: 0 4px !important;
+        margin: 0 -4px !important;   /* 補償外層 padding */
+    }
+    .news-card {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    /* footer 也容易出現白邊 */
+    footer .container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* 最後安全網：任何有過大左右 margin/padding 的元素 */
+    [style*="padding"],
+    [style*="margin"] {
+        padding-left: clamp(8px, 4vw, 16px) !important;
+        padding-right: clamp(8px, 4vw, 16px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    h1 { font-size: 1.85rem !important; }
+    h2 { font-size: 1.55rem !important; }
+}
