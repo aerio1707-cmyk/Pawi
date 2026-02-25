@@ -22,9 +22,25 @@ body {
 }
 
 .container {
+    --container-padding: 16px;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--container-padding);
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .container {
+        --container-padding: 12px;
+        padding: 0 var(--container-padding);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        --container-padding: 10px;
+    }
 }
 
 /* --- 導覽列 --- */
@@ -1293,4 +1309,69 @@ body.menu-open {
     }
     h1 { font-size: 1.85rem !important; }
     h2 { font-size: 1.55rem !important; }
+}
+
+@media (max-width: 768px) {
+
+    /* 壓制大部分頁面常見的過大 inline padding */
+    [style*="padding: 60px"],
+    [style*="padding: 80px"],
+    main[style*="padding"],
+    section[style*="padding"],
+    .product-detail-grid[style],
+    .about-section[style],
+    .page-header[style],
+    .news-filter[style] {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+
+    /* 強制內容區塊填滿可用寬度 */
+    main.container,
+    section.container,
+    .product-detail-grid,
+    .about-row,
+    .news-grid,
+    .product-purchase-box,
+    article {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* 文字內容本身也強制填滿 */
+    .product-purchase-box > div,
+    .about-col.text-side > div,
+    .news-card .news-content,
+    .page-header .container > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 圖片相關容器 */
+    .product-gallery,
+    .about-col.image-side .image-wrapper,
+    .news-img-box {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .product-gallery img,
+    .about-col.image-side img,
+    .news-img-box img {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        display: block;
+    }
 }
