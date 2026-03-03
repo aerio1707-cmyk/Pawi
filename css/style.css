@@ -30,56 +30,10 @@ body {
     box-sizing: border-box;
 }
 
-/* --- 移動端（手機）版面深度優化 --- */
 @media (max-width: 768px) {
-    /* 1. 統一容器邊距，防止內容貼邊 */
     .container {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 2. 修正標題對齊與字級 */
-    h1, h2, h3 {
-        text-align: center !important; /* 手機版建議標題置中更活潑 */
-        line-height: 1.4 !important;
-    }
-
-    /* 3. 優化產品詳情頁的排列 (針對 product-detail.html 等) */
-    .product-detail-container {
-        display: flex !important;
-        flex-direction: column !important; /* 改為垂直排列 */
-        align-items: center !important;
-        gap: 20px !important;
-    }
-
-    .product-image, .product-purchase-box {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 0 !important;
-    }
-
-    /* 4. 修正按鈕在手機上的視覺感 */
-    .btn-primary, .add-to-cart {
-        width: 100% !important; /* 滿版按鈕方便手指點擊 */
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        display: block !important;
-        text-align: center !important;
-    }
-
-    /* 5. 數量選單與按鈕的水平排列修正 */
-    .quantity-cart-row {
-        justify-content: center !important;
-        width: 100% !important;
-    }
-
-    /* 6. 頁尾 (Footer) 修正 */
-    footer .container {
-        flex-direction: column !important;
-        text-align: center !important;
-        gap: 30px !important;
+        --container-padding: 12px;
+        padding: 0 var(--container-padding);
     }
 }
 
@@ -339,7 +293,6 @@ body {
         height: 60px;
     }
 }
-
 /* 安心保證區塊樣式 */
 .trust-section {
     background-color: var(--white);
@@ -557,37 +510,13 @@ body {
 /* 響應式調整 */
 @media (max-width: 992px) {
     .about-row {
-        flex-direction: column; /* 強制垂直排列 */
-        gap: 30px;
-        text-align: center;
-    }
-    
-    .about-col {
-        width: 100%; /* 確保寬度填滿，不移位 */
-        min-width: unset;
-    }
-
-    .image-wrapper {
-        padding: 0; /* 移除手機版不必要的內距 */
-    }
-
-    /* 修復行內樣式按鈕在手機版的寬度 */
-    .btn-primary {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box;
-    }
-}
-
-/*@media (max-width: 992px) {
-    .about-row {
         gap: 40px;
         text-align: center;
     }
     .image-wrapper::after {
         display: none; /* 手機版簡化裝飾 */
-/*    }
-}*/
+    }
+}
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -1055,10 +984,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(90, 75, 64, 0.4); /* 使用品牌深咖啡色透明度 */
-    backdrop-filter: blur(4px); /* 模糊效果應加在遮罩，而非選單 */
-     z-index: 2500 !important;
+    background: rgba(90, 75, 64, 0.4);
+    backdrop-filter: blur(8px); /* 只模糊這層後面的內容 */
+    -webkit-backdrop-filter: blur(8px);
     display: none;
+    z-index: 2500;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -1071,19 +1001,6 @@ body {
 /* --- 行動版響應式設計 --- */
 @media (max-width: 768px) {
     .menu-toggle { display: block; }
-
-    .nav-menu {
-    position: fixed;
-    top: 0;
-    right: -100%; /* 初始隱藏於右側 */
-    width: 280px;
-    height: 100vh;
-    background-color: var(--secondary-yellow); /* 米白背景 */
-    z-index: 1002; /* 最高層級，確保可點擊 */
-    transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    padding: 80px 30px;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    }
 
     .nav-menu {
         position: fixed;
@@ -1141,13 +1058,17 @@ body.menu-open {
     z-index: 4000 !important;
 }
 
+.menu-overlay {
+    z-index: 2500 !important;
+}
+
 .nav-menu {
     z-index: 4500 !important;
 }
 
 /* ================================================
    === 行動版整體優化 - 手機排版修復 (2026.02.25 更新) ===
-   ================================================
+   ================================================ */
 
 @media (max-width: 768px) {
     /* 共通 - 減小標題與文字大小，避免過擠 */
@@ -1384,6 +1305,71 @@ body.menu-open {
     h2 { font-size: 1.55rem !important; }
 }
 
+@media (max-width: 768px) {
+
+    /* 壓制大部分頁面常見的過大 inline padding */
+    [style*="padding: 60px"],
+    [style*="padding: 80px"],
+    main[style*="padding"],
+    section[style*="padding"],
+    .product-detail-grid[style],
+    .about-section[style],
+    .page-header[style],
+    .news-filter[style] {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+
+    /* 強制內容區塊填滿可用寬度 */
+    main.container,
+    section.container,
+    .product-detail-grid,
+    .about-row,
+    .news-grid,
+    .product-purchase-box,
+    article {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* 文字內容本身也強制填滿 */
+    .product-purchase-box > div,
+    .about-col.text-side > div,
+    .news-card .news-content,
+    .page-header .container > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 圖片相關容器 */
+    .product-gallery,
+    .about-col.image-side .image-wrapper,
+    .news-img-box {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .product-gallery img,
+    .about-col.image-side img,
+    .news-img-box img {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        display: block;
+    }
+}
+
 /* ================================================
    === 手機版最終美化版 V3 (大型購物網站風格) ===
    ================================================ */
@@ -1473,6 +1459,10 @@ body.menu-open {
     align-items: center;
 }
 
+/* ================================================
+   === 手機版對齊最終強制修正 (V4 - 根治左空白+右偏) ===
+   ================================================ */
+
 @media (max-width: 768px) {
 
     /* 強制所有主要容器填滿畫面，消除左側大空白 */
@@ -1557,5 +1547,119 @@ body.menu-open {
     [style*="display: flex"] {
         width: 100% !important;
         justify-content: space-between !important;
+    }
+}
+
+/* ============================================================
+   MOBILE OPTIMIZATION (手機版專屬優化 - 僅在 768px 以下生效)
+   解決：內容右偏、按鈕未置中、容器貼邊、手機版導航列顯示問題
+   ============================================================ */
+
+@media screen and (max-width: 768px) {
+    
+    /* 1. 基礎容器修正：確保內容不貼邊，且寬度不超出螢幕 */
+    body {
+        overflow-x: hidden !important; /* 徹底杜絕左右晃動 */
+    }
+
+    .container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
+    }
+
+    /* 2. 修正產品詳細頁 (針對 product-detail 類型頁面) */
+    .product-detail-container {
+        display: flex !important;
+        flex-direction: column !important; /* 強制改為垂直排列 */
+        align-items: center !important;
+        padding: 20px 0 !important;
+        gap: 30px !important;
+    }
+
+    /* 3. 解決截圖中的「內容右偏」問題 */
+    .product-image, 
+    .product-purchase-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: none !important; /* 取消電腦版的 flex 比例 */
+        text-align: center !important; /* 確保標題與價格置中 */
+        padding: 0 !important;
+    }
+
+    /* 4. 產品標題與標籤修正 */
+    .product-purchase-box h1 {
+        font-size: 1.6rem !important;
+        margin: 15px 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    .badge {
+        margin: 0 auto 10px !important; /* 標籤置中 */
+        display: inline-block !important;
+    }
+
+    .price-box {
+        justify-content: center !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* 5. 數量選擇與購物車按鈕：改為最適合手機點擊的垂直佈局 */
+    .quantity-cart-row {
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        gap: 15px !important;
+        margin-top: 20px !important;
+    }
+
+    /* 讓數量輸入框大一點，好點擊 */
+    input[type="number"] {
+        width: 100px !important;
+        height: 50px !important;
+        margin: 0 auto !important;
+    }
+
+    /* 讓加入購物車按鈕滿版，符合 Pawi 品牌的溫馨大按鈕感 */
+    .btn-primary, 
+    .add-to-cart {
+        width: 100% !important;
+        max-width: 320px !important;
+        padding: 15px 0 !important;
+        font-size: 1.1rem !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+
+    /* 6. 手機版導航選單 (Hamburger Menu) 修正 */
+    .nav-menu {
+        position: fixed;
+        top: 65px; /* 避開 navbar 高度 */
+        right: -100%; /* 預設收起 */
+        width: 100%;
+        height: calc(100vh - 65px);
+        background-color: #FFFFFF;
+        transition: 0.3s ease-in-out;
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        right: 0 !important; /* 展開 */
+    }
+
+    .nav-menu ul {
+        flex-direction: column !important;
+        padding: 40px 0 !important;
+        gap: 25px !important;
+        align-items: center !important;
+    }
+
+    /* 7. 頁尾 Footer 修正 */
+    footer .container {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 30px !important;
     }
 }
