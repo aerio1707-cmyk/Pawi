@@ -30,10 +30,56 @@ body {
     box-sizing: border-box;
 }
 
+/* --- 移動端（手機）版面深度優化 --- */
 @media (max-width: 768px) {
+    /* 1. 統一容器邊距，防止內容貼邊 */
     .container {
-        --container-padding: 12px;
-        padding: 0 var(--container-padding);
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. 修正標題對齊與字級 */
+    h1, h2, h3 {
+        text-align: center !important; /* 手機版建議標題置中更活潑 */
+        line-height: 1.4 !important;
+    }
+
+    /* 3. 優化產品詳情頁的排列 (針對 product-detail.html 等) */
+    .product-detail-container {
+        display: flex !important;
+        flex-direction: column !important; /* 改為垂直排列 */
+        align-items: center !important;
+        gap: 20px !important;
+    }
+
+    .product-image, .product-purchase-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    /* 4. 修正按鈕在手機上的視覺感 */
+    .btn-primary, .add-to-cart {
+        width: 100% !important; /* 滿版按鈕方便手指點擊 */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        display: block !important;
+        text-align: center !important;
+    }
+
+    /* 5. 數量選單與按鈕的水平排列修正 */
+    .quantity-cart-row {
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    /* 6. 頁尾 (Footer) 修正 */
+    footer .container {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 30px !important;
     }
 }
 
@@ -293,6 +339,7 @@ body {
         height: 60px;
     }
 }
+
 /* 安心保證區塊樣式 */
 .trust-section {
     background-color: var(--white);
@@ -1100,7 +1147,7 @@ body.menu-open {
 
 /* ================================================
    === 行動版整體優化 - 手機排版修復 (2026.02.25 更新) ===
-   ================================================ */
+   ================================================
 
 @media (max-width: 768px) {
     /* 共通 - 減小標題與文字大小，避免過擠 */
@@ -1337,71 +1384,6 @@ body.menu-open {
     h2 { font-size: 1.55rem !important; }
 }
 
-@media (max-width: 768px) {
-
-    /* 壓制大部分頁面常見的過大 inline padding */
-    [style*="padding: 60px"],
-    [style*="padding: 80px"],
-    main[style*="padding"],
-    section[style*="padding"],
-    .product-detail-grid[style],
-    .about-section[style],
-    .page-header[style],
-    .news-filter[style] {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        padding-top: 40px !important;
-        padding-bottom: 40px !important;
-    }
-
-    /* 強制內容區塊填滿可用寬度 */
-    main.container,
-    section.container,
-    .product-detail-grid,
-    .about-row,
-    .news-grid,
-    .product-purchase-box,
-    article {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    /* 文字內容本身也強制填滿 */
-    .product-purchase-box > div,
-    .about-col.text-side > div,
-    .news-card .news-content,
-    .page-header .container > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding-left: 8px !important;
-        padding-right: 8px !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 圖片相關容器 */
-    .product-gallery,
-    .about-col.image-side .image-wrapper,
-    .news-img-box {
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .product-gallery img,
-    .about-col.image-side img,
-    .news-img-box img {
-        width: 100% !important;
-        height: auto !important;
-        margin: 0 !important;
-        display: block;
-    }
-}
-
 /* ================================================
    === 手機版最終美化版 V3 (大型購物網站風格) ===
    ================================================ */
@@ -1490,10 +1472,6 @@ body.menu-open {
     gap: 12px;
     align-items: center;
 }
-
-/* ================================================
-   === 手機版對齊最終強制修正 (V4 - 根治左空白+右偏) ===
-   ================================================ */
 
 @media (max-width: 768px) {
 
