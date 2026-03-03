@@ -1,4 +1,4 @@
-/* Pawi (派怡) 官方網站 - 核心樣式表 V2.5 (手機版面修正版) */
+/* Pawi (派怡) 官方網站 - 核心樣式表 V2.6 (手機版面與漢堡選單修正版) */
 
 /*色彩一致性：加入了rgba(255, 157, 66, 0.1)的陰影，這會讓網頁與橘色系的產品圖產生視覺共鳴。
 圖片填充：使用object-fit: contain是因為保健食品的罐子通常有固定形狀，這樣可以確保標題與Logo不會被切掉。*/
@@ -204,25 +204,6 @@ body {
 .trust-icon-wrapper img {
     width: 100%;
     height: auto;
-}
-
-/* Pawi (派怡) 官方網站 - 核心樣式表 V2.5 (漢堡選單修復版) */
-
-:root {
-    --primary-orange: #FF9D42;
-    --secondary-yellow: #FFF9F2;
-    --text-color: #5A4B40;
-    --white: #FFFFFF;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* --- 全域設定 --- */
-body {
-    font-family: 'Noto Sans TC', sans-serif;
-    color: var(--text-color);
-    background-color: var(--white);
-    margin: 0;
-    line-height: 1.6;
 }
 
 /* --- 導覽列優化 --- */
@@ -441,13 +422,23 @@ body.menu-open {
         position: fixed !important;
         top: 65px !important;
         right: -100% !important; /* 預設隱藏 */
-        width: 100% !important;
+        width: 80% !important; /* 新增: 調整寬度為 80%，避免全覆蓋頁面，留邊距給使用者看背景 */
+        max-width: 320px !important; /* 新增: 限制最大寬度，防止在較寬手機全覆蓋 */
+        height: calc(100vh - 65px) !important; /* 新增: 高度扣除 navbar，避免全高覆蓋 */
         background: #fff !important;
-        transition: 0.3s ease !important;
+        transition: right 0.3s ease !important;
+        overflow-y: auto !important; /* 新增: 若選單過長，可捲動 */
+        box-shadow: -5px 0 15px rgba(0,0,0,0.15) !important; /* 新增: 輕陰影，增強溫馨感 */
     }
 
     .nav-menu.active {
         right: 0 !important;
+    }
+
+    /* 新增: 優化遮罩層，避免全覆蓋感覺過強 */
+    .menu-overlay.active {
+        background: rgba(90, 75, 64, 0.3) !important; /* 減輕透明度，避免太暗 */
+        backdrop-filter: blur(5px) !important; /* 減輕模糊，保留背景可見 */
     }
 
     /* 5. 頁尾 (Footer) 修正 */
