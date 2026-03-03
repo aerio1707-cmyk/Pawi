@@ -103,6 +103,7 @@ body {
     text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
 }
 
+/* 膠囊型按鈕 */
 .btn-primary {
     display: inline-block;
     background: var(--primary-orange);
@@ -112,6 +113,9 @@ body {
     text-decoration: none;
     font-weight: bold;
     transition: transform 0.2s;
+    box-shadow: 0 4px 15px rgba(255, 157, 66, 0.3); /* 增加輕微陰影讓按鈕更活潑 */
+    border: none;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
@@ -119,16 +123,6 @@ body {
     background: #e68a35;
 }
 
-/* Pawi/css/style.css 補充與優化 */
-
-/* 膠囊型按鈕 */
-.btn-primary {
-    border-radius: 50px; /* 關鍵：產生膠囊形狀 */
-    padding: 12px 40px;
-    box-shadow: 0 4px 15px rgba(255, 157, 66, 0.3); /* 增加輕微陰影讓按鈕更活潑 */
-    border: none;
-    cursor: pointer;
-}
 
 /* 產品圖卡圓角 */
 .product-card {
@@ -516,13 +510,37 @@ body {
 /* 響應式調整 */
 @media (max-width: 992px) {
     .about-row {
+        flex-direction: column; /* 強制垂直排列 */
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .about-col {
+        width: 100%; /* 確保寬度填滿，不移位 */
+        min-width: unset;
+    }
+
+    .image-wrapper {
+        padding: 0; /* 移除手機版不必要的內距 */
+    }
+
+    /* 修復行內樣式按鈕在手機版的寬度 */
+    .btn-primary {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+}
+
+/*@media (max-width: 992px) {
+    .about-row {
         gap: 40px;
         text-align: center;
     }
     .image-wrapper::after {
         display: none; /* 手機版簡化裝飾 */
-    }
-}
+/*    }
+}*/
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -990,11 +1008,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(90, 75, 64, 0.4);
-    backdrop-filter: blur(8px); /* 只模糊這層後面的內容 */
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(90, 75, 64, 0.4); /* 使用品牌深咖啡色透明度 */
+    backdrop-filter: blur(4px); /* 模糊效果應加在遮罩，而非選單 */
+     z-index: 2500 !important;
     display: none;
-    z-index: 2500;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -1007,6 +1024,19 @@ body {
 /* --- 行動版響應式設計 --- */
 @media (max-width: 768px) {
     .menu-toggle { display: block; }
+
+    .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%; /* 初始隱藏於右側 */
+    width: 280px;
+    height: 100vh;
+    background-color: var(--secondary-yellow); /* 米白背景 */
+    z-index: 1002; /* 最高層級，確保可點擊 */
+    transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    padding: 80px 30px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
 
     .nav-menu {
         position: fixed;
@@ -1062,10 +1092,6 @@ body.menu-open {
 */
 .navbar {
     z-index: 4000 !important;
-}
-
-.menu-overlay {
-    z-index: 2500 !important;
 }
 
 .nav-menu {
