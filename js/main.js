@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const isActive = navMenu.classList.toggle('active');
         menuOverlay.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
+
+        // body.menu-open：鎖住背景捲動（CSS 設定 overflow:hidden）
+        document.body.classList.toggle('menu-open', isActive);
 
         // 切換漢堡圖示（fa-bars ↔ fa-times）
         const icon = menuToggle ? menuToggle.querySelector('i') : null;
