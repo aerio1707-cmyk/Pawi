@@ -45,7 +45,7 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.4); /* 純黑色半透明，避開模糊干擾 */
     display: none;
-    z-index: 2000; /* 低於選單，高於內容 */
+    z-index: 4500 !important;/* 低於選單，高於內容 */
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -67,7 +67,7 @@
         height: 100vh;
         background-color: #FFFFFF !important; /* 確保選單本身不透明 */
         box-shadow: -5px 0 20px rgba(0,0,0,0.15);
-        z-index: 3000; /* 高於遮罩 */
+        z-index: 4500 !important; /* 高於遮罩 */
         transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         padding-top: 80px;
         visibility: hidden; /* 防止隱藏時被點擊 */
@@ -1010,5 +1010,6 @@ body {
     gap: 15px;
     color: var(--text-color);
 }
+
 
 .feeding-notice-box i { color: var(--primary-orange); font-size: 1.5rem; }
