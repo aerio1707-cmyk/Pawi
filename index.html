@@ -8,39 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        body { margin: 0; padding: 0; overflow-x: hidden; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 10px 0; }
-        
-        .navbar { display: flex; align-items: center; background: #fff; padding: 10px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .navbar .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo img { height: 50px; display: block; }
-
-        .hero-banner { 
-            position: relative; 
-            height: 500px; 
-            background: #FFD28D url('images/hero-bg.jpg') center/cover no-repeat;
-            display: flex; align-items: center; justify-content: center; text-align: center;
+        /* index.html 專用樣式（其餘已統一移至 css/style.css） */
+        .hero-overlay {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 40px;
+            max-width: 600px;
         }
-        .hero-overlay { background: rgba(255, 255, 255, 0.6); padding: 30px; border-radius: 40px; max-width: 600px; }
-
-        .product-section { padding: 60px 0; }
-        .product-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; margin-top: 30px; 
-        }
-        .product-card { 
-            background: #fff; border-radius: 30px; overflow: hidden; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s;
-            display: flex; flex-direction: column;
-        }
-        .product-card:hover { transform: translateY(-10px); }
-        .product-img { width: 100%; height: 250px; background: #fdfdfd; display: flex; align-items: center; justify-content: center; }
-        .product-img img { max-height: 80%; max-width: 80%; object-fit: contain; }
-        .product-info { padding: 20px; text-align: center; }
-        
-        .btn-primary { background: #FF9D42; color: #fff; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; }
-        .price { color: #FF9D42; font-size: 1.5rem; font-weight: bold; display: block; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -167,7 +141,7 @@
             
             <div style="flex: 1; min-width: 200px;">
                 <h4 style="margin-bottom: 20px;">聯絡我們</h4>
-                <p style="color: #ccc; margin-bottom: 10px;"><i class="fas fa-envelope" style="margin-right: 10px;"></i> service@pawi.com.tw</p>
+                <p style="color: #ccc; margin-bottom: 10px;"><i class="fas fa-envelope" style="margin-right: 10px;"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a190f181c03090f2a1a0b1d0344090507441e1d">[email&#160;protected]</a></p>
                 <p style="color: #ccc;"><i class="fas fa-phone" style="margin-right: 10px;"></i> 02-1234-5678</p>
                 <div style="margin-top: 20px;">
                     <a href="#" style="color: #fff; font-size: 1.5rem; margin-right: 15px;"><i class="fab fa-facebook"></i></a>
@@ -177,12 +151,4 @@
         </div>
     
         <div style="text-align: center; border-top: 1px solid #6d5d52; margin-top: 40px; padding-top: 20px; font-size: 0.8rem; color: #aaa;">
-            &copy; 2026 Pawi 派怡寵物營養專家 版權所有
-        </div>
-    </footer>
-    <script src="js/main.js"></script>
-</body>
-
-</html>
-
-
+            &copy; 2026 Pawi 派�
