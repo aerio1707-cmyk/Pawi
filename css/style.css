@@ -1,123 +1,58 @@
-/* Pawi (派怡) 官方網站 - 核心樣式表 V2.4 (最終修復版) */
+/* =============================================================
+   Pawi (派怡) 官方網站 核心樣式表
+   版本：V3.0  整理優化版
+   結構：
+     00. CSS 變數（品牌色系）
+     01. 全域基礎設定
+     02. 導覽列
+     03. 漢堡選單 & 遮罩層
+     04. 按鈕
+     05. Hero Banner 主視覺
+     06. 產品區塊（首頁）
+     07. 安心保證區塊
+     08. 關於我們頁面
+     09. 最新消息頁面
+     10. 產品詳情頁面
+     11. 頁籤（Tabs）
+     12. 食用建議區塊
+     13. 檢驗報告區塊
+     14. 購物車側欄（預留）
+     15. Modal / Lightbox
+     16. 響應式（RWD）
+   ============================================================= */
 
+
+/* ============================================================
+   00. CSS 變數 — 品牌色系與全域參數
+   ============================================================ */
 :root {
-    --primary-orange: #FF9D42;
-    --secondary-yellow: #FFF9F2;
-    --text-color: #5A4B40;
-    --white: #FFFFFF;
-}
-
-/* --- 導覽列 --- */
-.navbar {
-    background: var(--white);
-    padding: 10px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar .container { display: flex; justify-content: space-between; align-items: center; }
-
-/* 漢堡按鈕 - 確保絕對層級 */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.6rem;
-    color: var(--primary-orange);
-    cursor: pointer;
-    position: relative;
-    z-index: 3001; /* 最高層級 */
-    padding: 10px;
-}
-
-/* 導覽選單 (桌機) */
-.nav-menu ul { display: flex; list-style: none; margin: 0; padding: 0; }
-.nav-menu ul li a { text-decoration: none; padding: 10px 20px; color: var(--text-color); font-weight: 500; }
-
-/* 背景遮罩層 - 移除模糊濾鏡，僅保留半透明色塊 */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* 純黑色半透明，避開模糊干擾 */
-    display: none;
-    z-index: 4500 !important;/* 低於選單，高於內容 */
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.menu-overlay.active {
-    display: block;
-    opacity: 1;
-}
-
-/* --- 手機版響應式 --- */
-@media (max-width: 768px) {
-    .menu-toggle { display: block; }
-
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%; 
-        width: 280px;
-        height: 100vh;
-        background-color: #FFFFFF !important; /* 確保選單本身不透明 */
-        box-shadow: -5px 0 20px rgba(0,0,0,0.15);
-        z-index: 4500 !important; /* 高於遮罩 */
-        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        padding-top: 80px;
-        visibility: hidden; /* 防止隱藏時被點擊 */
-    }
-
-    .nav-menu.active {
-        right: 0;
-        visibility: visible;
-    }
-
-    /* 針對選單內的列表優化 */
-    .nav-menu ul { flex-direction: column; width: 100%; }
-    .nav-menu ul li { width: 100%; border-bottom: 1px solid #f5f5f5; }
-    .nav-menu ul li a { 
-        display: block; 
-        padding: 20px; 
-        text-align: center; 
-        font-size: 1.1rem; 
-        color: var(--text-color);
-    }
-}
-
-/* 當選單開啟時，將主體模糊化（由 body 控制） */
-body.menu-open main, 
-body.menu-open section, 
-body.menu-open footer {
-    filter: blur(5px);
-    pointer-events: none; /* 防止點擊到底層內容 */
+    --primary-orange:   #FF9D42;   /* 主色：溫暖橘，用於按鈕、標題、強調 */
+    --secondary-yellow: #FFF9F2;   /* 輔色：淺米黃，用於區塊背景 */
+    --accent-yellow:    #FFD28D;   /* 強調黃，用於特殊裝飾 */
+    --text-color:       #5A4B40;   /* 主文字色：溫馨深咖啡 */
+    --text-dark:        #5A4B40;   /* 同上，供部分元件獨立引用 */
+    --white:            #FFFFFF;
+    --transition:       all 0.3s ease;
 }
 
 
-/*色彩一致性：加入了rgba(255, 157, 66, 0.1)的陰影，這會讓網頁與橘色系的產品圖產生視覺共鳴。
-圖片填充：使用object-fit: contain是因為保健食品的罐子通常有固定形狀，這樣可以確保標題與Logo不會被切掉。*/
-
-/* --- 基礎變數設定 --- */
-:root {
-    --primary-orange: #FF9D42;  /* 主色：橘色 */
-    --secondary-yellow: #FFF9F2; /* 輔色：淺米黃 (修正為較淡的顏色作為背景) */
-    --text-color: #5A4B40;      /* 文字色：溫馨深啡 */
-    --white: #FFFFFF;
-    --transition: all 0.3s ease;
+/* ============================================================
+   01. 全域基礎設定
+   ============================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-/* --- 全域設定優化 --- */
 body {
     font-family: 'Noto Sans TC', sans-serif;
     color: var(--text-color);
-    background-color: var(--white); /* 改為白色，部分區塊再用米色 */
+    background-color: var(--white);
     margin: 0;
+    padding: 0;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 .container {
@@ -126,11 +61,19 @@ body {
     padding: 0 20px;
 }
 
-/* --- 導覽列 --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ============================================================
+   02. 導覽列
+   ============================================================ */
 .navbar {
     background: var(--white);
-    padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 10px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -142,16 +85,31 @@ body {
     align-items: center;
 }
 
-.logo-text {
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--primary-orange);
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
 }
 
+.brand-logo {
+    height: 80px;
+    width: auto;
+    transition: height 0.3s ease;
+    max-height: 100%;
+}
+
+/* Logo 縮小（捲動時由 JS 加上 .nav-scrolled） */
+.nav-scrolled .brand-logo {
+    height: 60px;
+}
+
+/* 導覽連結 */
 .nav-menu ul {
     display: flex;
     list-style: none;
     margin: 0;
+    padding: 0;
 }
 
 .nav-menu ul li a {
@@ -159,42 +117,74 @@ body {
     padding: 10px 20px;
     color: var(--text-color);
     font-weight: 500;
-    transition: 0.3s;
+    transition: color 0.3s;
 }
 
 .nav-menu ul li a:hover {
     color: var(--primary-orange);
 }
 
-/* --- 主視覺 Banner --- */
-.hero-banner {
-    height: 500px;
-    background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), 
-                url('../images/hero-bg.jpg') center/cover; /* 建議放溫馨犬貓圖 */
-    background-color: var(--secondary-yellow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
+/* ============================================================
+   03. 漢堡選單 & 遮罩層
+   ============================================================ */
 
-.hero-content h1 {
-    font-size: 3rem;
+/* 漢堡按鈕（桌機隱藏，手機顯示） */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
     color: var(--primary-orange);
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+    cursor: pointer;
+    position: relative;
+    z-index: 3001;
+    padding: 10px;
 }
 
+/* 半透明遮罩 */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* 選單開啟時，主體內容模糊化（防誤觸） */
+body.menu-open main,
+body.menu-open section,
+body.menu-open footer {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   04. 按鈕
+   ============================================================ */
 .btn-primary {
     display: inline-block;
     background: var(--primary-orange);
-    color: white;
-    padding: 12px 35px;
-    border-radius: 50px; /* 圓角設計增加親切感 */
+    color: var(--white);
+    padding: 12px 40px;
+    border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
-    transition: transform 0.2s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 157, 66, 0.3);
+    transition: transform 0.2s, background 0.2s;
 }
 
 .btn-primary:hover {
@@ -202,31 +192,65 @@ body {
     background: #e68a35;
 }
 
-/* Pawi/css/style.css 補充與優化 */
+.btn-outline {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 2px solid var(--primary-orange);
+    color: var(--primary-orange);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: var(--transition);
+}
 
-/* 膠囊型按鈕 */
-.btn-primary {
-    border-radius: 50px; /* 關鍵：產生膠囊形狀 */
-    padding: 12px 40px;
-    box-shadow: 0 4px 15px rgba(255, 157, 66, 0.3); /* 增加輕微陰影讓按鈕更活潑 */
-    border: none;
+.btn-outline:hover {
+    background: var(--primary-orange);
+    color: var(--white);
+}
+
+/* 分類過濾按鈕 */
+.filter-btn {
+    padding: 10px 25px;
+    border: 2px solid var(--primary-orange);
+    background: transparent;
+    color: var(--primary-orange);
+    border-radius: 50px;
+    font-weight: bold;
     cursor: pointer;
+    transition: var(--transition);
 }
 
-/* 產品圖卡圓角 */
-.product-card {
-    border-radius: 25px;
-    background: #fff;
-    padding: 20px;
-    transition: 0.3s;
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--primary-orange);
+    color: var(--white);
 }
 
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+/* ============================================================
+   05. Hero Banner 主視覺
+   ============================================================ */
+.hero-banner {
+    height: 500px;
+    background: var(--secondary-yellow) url('../images/hero-bg.jpg') center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-/* --- 產品展示區塊 --- */
+.hero-content h1 {
+    font-size: 3rem;
+    color: var(--primary-orange);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+
+/* ============================================================
+   06. 產品區塊（首頁產品列表）
+   ============================================================ */
 .product-section {
     padding: 80px 20px;
 }
@@ -242,7 +266,7 @@ body {
     margin-bottom: 10px;
 }
 
-/* 分類按鈕樣式 */
+/* 分類按鈕群組 */
 .filter-group {
     display: flex;
     justify-content: center;
@@ -250,70 +274,59 @@ body {
     margin-bottom: 50px;
 }
 
-.filter-btn {
-    padding: 10px 25px;
-    border: 2px solid var(--primary-orange);
-    background: transparent;
-    color: var(--primary-orange);
-    border-radius: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.filter-btn.active, .filter-btn:hover {
-    background: var(--primary-orange);
-    color: white;
-}
-
 /* 產品網格 */
 .product-grid {
     display: flex;
-    flex-wrap: wrap; /* 確保會自動換行 */
-    justify-content: center; /* 居中對齊 */
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
     padding: 20px 0;
 }
 
 /* 產品卡片 */
 .product-card {
-    flex: 0 1 300px; /* 固定基礎寬度為 300px */
+    flex: 0 1 300px;
     background: var(--white);
-    border-radius: 30px; 
+    border-radius: 30px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(255, 157, 66, 0.1); /* 改用暖色調陰影 */
-    margin-bottom: 20px;
+    box-shadow: 0 15px 35px rgba(255, 157, 66, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-.badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: var(--primary-orange);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    z-index: 2;
+/* 確保卡片內按鈕不被遮蓋 */
+.product-card .btn-primary {
+    position: relative;
+    z-index: 10;
 }
 
-.cat-badge {
-    background: #FFB347; /* 稍微淺一點的橘黃色做區隔 */
+/* 產品圖片容器 */
+.product-img {
+    width: 100%;
+    height: 250px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-img img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 適合產品包裝圖，避免被裁切 */
-    padding: 20px; /* 留白讓產品看起來更高級 */
+    object-fit: contain;
+    padding: 20px;
 }
 
+/* 產品資訊 */
 .product-info {
     padding: 20px;
+    text-align: center;
 }
 
 .product-info h3 {
@@ -327,18 +340,35 @@ body {
     margin-bottom: 20px;
 }
 
+/* 價格 */
+.price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-orange);
+    display: block;
+    margin: 10px 0;
+}
+
 .price-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-orange);
+/* 標籤徽章 */
+.badge {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
 }
 
+.cat-badge {
+    background: #FFB347;
+    color: var(--white);
+}
+
+/* 加入購物車圓形按鈕 */
 .add-cart-btn {
     background: var(--secondary-yellow);
     border: none;
@@ -347,42 +377,34 @@ body {
     border-radius: 50%;
     color: var(--text-color);
     cursor: pointer;
-    transition: 0.3s;
+    transition: var(--transition);
 }
 
 .add-cart-btn:hover {
     background: var(--primary-orange);
-    color: white;
-}
-/* 針對 Logo 容器與圖片的優化 */
-.logo {
-    display: flex;
-    align-items: center;
-    padding: 5px 0; /* 給 Logo 一點上下呼吸空間 */
-}
-.brand-logo {
-    /* 調整高度：從原本的 50px 增加到 80px 或您滿意的大小 */
-    height: 80px; 
-    width: auto; /* 維持比例不變形 */
-    
-    /* 增加平滑過渡效果 */
-    transition: height 0.3s ease;
-    
-    /* 防止在手機版太大 */
-    max-height: 100%;
-}
-/* 如果您希望在捲動網頁後 Logo 變小（讓導覽列變窄），可以配合 JS 加入此類別 */
-.nav-scrolled .brand-logo {
-    height: 60px;
+    color: var(--white);
 }
 
-/* 手機版適配：如果手機版還是覺得太大，可以稍微縮小 */
-@media (max-width: 768px) {
-    .brand-logo {
-        height: 60px;
-    }
+/* 數量 + 購物車按鈕列 */
+.quantity-cart-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
-/* 安心保證區塊樣式 */
+
+.quantity-cart-row input[type="number"] {
+    width: 70px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+
+/* ============================================================
+   07. 安心保證區塊（首頁 Trust Section）
+   ============================================================ */
 .trust-section {
     background-color: var(--white);
     padding: 60px 0;
@@ -413,12 +435,13 @@ body {
     color: #777;
     font-size: 0.95rem;
 }
-/* 安心保證圖示外框優化 */
+
+/* 圖示圓形外框 */
 .trust-icon-wrapper {
     width: 120px;
     height: 120px;
     margin: 0 auto 20px;
-    background: #fff; /* 確保圓形背景乾淨 */
+    background: var(--white);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -427,20 +450,97 @@ body {
 }
 
 .trust-icon-wrapper img {
-    width: 100%; /* 圖示填滿圓圈 */
+    width: 100%;
     height: auto;
 }
 
 .trust-item:hover .trust-icon-wrapper {
-    transform: scale(1.1); /* 滑鼠移上去圖示會微微放大，變得很活潑 */
+    transform: scale(1.1);
 }
-/* 最新消息卡片樣式 */
+
+
+/* ============================================================
+   08. 關於我們頁面
+   ============================================================ */
+.about-section {
+    padding: 80px 20px;
+}
+
+.about-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.about-col {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* 圖片側 */
+.image-wrapper {
+    position: relative;
+    padding: 20px;
+}
+
+.image-wrapper img {
+    width: 100%;
+    border-radius: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+/* 裝飾色塊背景 */
+.image-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    background: var(--secondary-yellow);
+    border-radius: 40px;
+    z-index: 1;
+}
+
+/* 文字側 */
+.text-side .sub-title {
+    color: var(--primary-orange);
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.text-side h2 {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    line-height: 1.3;
+}
+
+.text-side .content-p p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+
+/* ============================================================
+   09. 最新消息頁面
+   ============================================================ */
+
+/* 新聞卡片 */
 .news-card {
-    background: #fff;
+    background: var(--white);
     border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .news-card:hover {
@@ -448,9 +548,11 @@ body {
     box-shadow: 0 15px 35px rgba(255, 157, 66, 0.15);
 }
 
+/* 圖片區 */
 .news-img-box {
     position: relative;
     height: 200px;
+    background-color: #f5f5f5;
 }
 
 .news-img-box img {
@@ -459,17 +561,19 @@ body {
     object-fit: cover;
 }
 
+/* 分類標籤 */
 .news-tag {
     position: absolute;
     bottom: 15px;
     left: 15px;
     background: var(--primary-orange);
-    color: #fff;
+    color: var(--white);
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
 }
 
+/* 內文 */
 .news-content {
     padding: 20px;
 }
@@ -489,7 +593,7 @@ body {
     color: #666;
     font-size: 0.95rem;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* 限制兩行文字 */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-bottom: 20px;
@@ -502,7 +606,7 @@ body {
     font-size: 0.9rem;
 }
 
-/* 分頁連結樣式 */
+/* 分頁 */
 .page-link {
     width: 40px;
     height: 40px;
@@ -513,188 +617,30 @@ body {
     border-radius: 50%;
     text-decoration: none;
     color: #666;
+    transition: var(--transition);
 }
 
 .page-link.active {
     background: var(--primary-orange);
-    color: #fff;
-    border-color: var(--primary-orange);
-}
-:root {
-    --primary-orange: #FF9D42;
-    --secondary-yellow: #FFF9F2; /* 淺色背景 */
-    --accent-yellow: #FFD28D;    /* 強調黃色 */
-    --text-dark: #5A4B40;
-    --white: #FFFFFF;
-}
-
-/* --- 關於我們頁面專用樣式 --- */
-.about-section {
-    padding: 80px 20px;
-}
-
-.about-row {
-    display: flex;
-    align-items: center; /* 垂直置中 */
-    justify-content: space-between;
-    gap: 60px;
-    flex-wrap: wrap; /* 手機版自動換行 */
-}
-
-.about-col {
-    flex: 1;
-    min-width: 300px;
-}
-
-/* 圖片側處理 */
-.image-wrapper {
-    position: relative;
-    padding: 20px;
-}
-
-.image-wrapper img {
-    width: 100%;
-    border-radius: 40px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    display: block;
-    position: relative;
-    z-index: 2;
-}
-
-/* 裝飾用的暖色色塊背景 */
-.image-wrapper::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 80%;
-    height: 80%;
-    background: var(--secondary-yellow);
-    border-radius: 40px;
-    z-index: 1;
-}
-
-/* 文字側處理 */
-.text-side .sub-title {
-    color: var(--primary-orange);
-    font-weight: bold;
-    letter-spacing: 2px;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.text-side h2 {
-    font-size: 2.5rem;
-    color: var(--text-dark);
-    margin-bottom: 25px;
-    line-height: 1.3;
-}
-
-.text-side .content-p p {
-    margin-bottom: 20px;
-    line-height: 1.8;
-    color: #5A4B40;
-}
-
-/* 響應式調整 */
-@media (max-width: 992px) {
-    .about-row {
-        gap: 40px;
-        text-align: center;
-    }
-    .image-wrapper::after {
-        display: none; /* 手機版簡化裝飾 */
-    }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* 餵食表格樣式 */
-.feeding-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.feeding-table th {
-    background: var(--primary-orange);
-    color: #fff;
-    padding: 12px;
-}
-
-.feeding-table td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-    text-align: center;
-}
-
-/* 產品特色細節網格 */
-.feature-detail-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 20px 0;
-}
-
-/* 特色項目容器 */
-.feature-item {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 20px;
-    border-radius: 20px;
-    border: 1px solid #f0f0f0;
-    transition: all 0.3s ease;
-}
-
-.feature-item:hover {
-    box-shadow: 0 10px 20px rgba(255, 157, 66, 0.1);
+    color: var(--white);
     border-color: var(--primary-orange);
 }
 
-/* 插畫容器 */
-.feature-icon-box {
-    flex: 0 0 80px; /* 固定寬度 */
-    height: 80px;
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.feature-icon-box img {
-    max-width: 100%;
-    height: auto;
-}
+/* ============================================================
+   10. 產品詳情頁面
+   ============================================================ */
 
-/* 文字部分 */
-.feature-text h4 {
-    color: var(--text-dark);
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-}
-
-.feature-text p {
-    font-size: 0.9rem;
-    color: #777;
-    line-height: 1.5;
-    margin: 0;
-}
-
+/* 特色卡片 */
 .feature-card {
-    background: #fff;
+    background: var(--white);
     border-radius: 25px;
     padding: 25px;
     display: flex;
     align-items: flex-start;
     gap: 20px;
     border: 1px solid #fdf2e8;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 .feature-card:hover {
@@ -704,7 +650,7 @@ body {
 }
 
 .feature-icon {
-    flex: 0 0 70px; /* 固定插畫寬度 */
+    flex: 0 0 70px;
 }
 
 .feature-icon img {
@@ -725,8 +671,230 @@ body {
     line-height: 1.6;
 }
 
+/* 特色細節網格 */
+.feature-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
 
-/* 食用建議卡片動態 */
+/* 舊版 feature-item（保留相容） */
+.feature-item {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid #f0f0f0;
+    transition: var(--transition);
+}
+
+.feature-item:hover {
+    box-shadow: 0 10px 20px rgba(255, 157, 66, 0.1);
+    border-color: var(--primary-orange);
+}
+
+.feature-icon-box {
+    flex: 0 0 80px;
+    height: 80px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-icon-box img {
+    max-width: 100%;
+    height: auto;
+}
+
+.feature-text h4 {
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.feature-text p {
+    font-size: 0.9rem;
+    color: #777;
+    line-height: 1.5;
+    margin: 0;
+}
+
+
+/* ============================================================
+   11. 頁籤（Tabs）
+   ============================================================ */
+.tab-header {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 2px solid #f5f5f5;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 15px 10px;
+    font-size: 1.15rem;
+    cursor: pointer;
+    color: #a0a0a0;
+    font-weight: 500;
+    position: relative;
+    transition: var(--transition);
+    font-family: 'Noto Sans TC', sans-serif;
+    margin-right: 20px;
+}
+
+.tab-btn:hover {
+    color: var(--primary-orange);
+}
+
+.tab-btn.active {
+    color: var(--primary-orange);
+    font-weight: 700;
+}
+
+/* 頁籤底線動畫 */
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 4px;
+    background: var(--primary-orange);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.tab-btn.active::after {
+    width: 150%;
+}
+
+/* 頁籤內容區 */
+.tab-content {
+    display: none;
+    padding: 20px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   12. 食用建議區塊
+   ============================================================ */
+.feeding-guide-container {
+    padding: 20px 0;
+}
+
+/* 步驟圖解 */
+.method-steps {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.step-item {
+    flex: 1;
+}
+
+.step-icon-bg {
+    width: 100px;
+    height: 100px;
+    background: var(--white);
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(255, 157, 66, 0.1);
+    border: 2px solid var(--secondary-yellow);
+}
+
+.step-icon-bg img {
+    width: 60px;
+    height: auto;
+}
+
+.step-arrow {
+    color: var(--primary-orange);
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+
+/* 體重餵食表格 */
+.table-wrapper {
+    background: var(--white);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    margin-bottom: 30px;
+}
+
+.pawi-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pawi-table th {
+    background: var(--secondary-yellow);
+    color: var(--text-color);
+    padding: 20px;
+    font-weight: 700;
+}
+
+.pawi-table td {
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 1px solid #fdf2e8;
+}
+
+/* 劑量膠囊樣式 */
+.qty-pill {
+    display: inline-block;
+    padding: 5px 15px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    color: #777;
+}
+
+.qty-pill.orange {
+    background: var(--primary-orange);
+    color: var(--white);
+}
+
+/* 提示框 */
+.feeding-notice-box {
+    background: var(--secondary-yellow);
+    border-left: 5px solid var(--primary-orange);
+    padding: 20px;
+    border-radius: 0 15px 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-color);
+}
+
+.feeding-notice-box i {
+    color: var(--primary-orange);
+    font-size: 1.5rem;
+}
+
+/* 舊版餵食方式卡片（保留相容） */
 .feeding-methods-grid {
     display: flex;
     gap: 20px;
@@ -735,12 +903,12 @@ body {
 
 .method-card {
     flex: 1;
-    background: #fff;
+    background: var(--white);
     border-radius: 20px;
     padding: 20px;
     text-align: center;
     border: 1px solid #fdf2e8;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 .method-card:hover {
@@ -753,7 +921,10 @@ body {
     margin-bottom: 10px;
 }
 
-/* 檢驗報告區塊設計 */
+
+/* ============================================================
+   13. 檢驗報告區塊
+   ============================================================ */
 .report-summary-box {
     display: flex;
     align-items: center;
@@ -774,8 +945,8 @@ body {
     position: absolute;
     bottom: 0;
     right: 0;
-    background: #4CAF50;
-    color: #fff;
+    background: #4caf50;
+    color: var(--white);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -783,43 +954,88 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 3px solid #fff;
+    border: 3px solid var(--white);
 }
 
-.btn-outline {
-    display: inline-block;
-    padding: 12px 30px;
-    border: 2px solid var(--primary-orange);
+/* 安全認證圖示 */
+.safety-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.safety-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--secondary-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
     color: var(--primary-orange);
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
+}
+
+/* 報告預覽圖牆 */
+.report-gallery-wall {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
     margin-top: 20px;
-    transition: all 0.3s ease;
 }
 
-.btn-outline:hover {
-    background: var(--primary-orange);
-    color: #fff;
+.report-preview-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    flex: 0 0 200px;
 }
 
-/* --- 互動性補強 --- */
-
-/* 確保圖片在加載前有灰色佔位背景，提升體驗 */
-.product-img, .news-img-box {
-    background-color: #f5f5f5;
+.report-preview-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
 }
 
-/* 購物車側欄預留樣式 (未來功能) */
+.report-preview-card:hover img {
+    transform: scale(1.05);
+}
+
+.preview-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 157, 66, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.report-preview-card:hover .preview-overlay {
+    opacity: 1;
+}
+
+
+/* ============================================================
+   14. 購物車側欄（預留未來功能）
+   ============================================================ */
 .cart-sidebar {
     position: fixed;
-    right: -400px; /* 預設隱藏在右側 */
+    right: -400px;
     top: 0;
     width: 350px;
     height: 100vh;
     background: var(--white);
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     z-index: 2000;
     padding: 30px;
 }
@@ -828,14 +1044,14 @@ body {
     right: 0;
 }
 
-/* 遮罩層：當選單或購物車開啟時，背景變暗 */
+/* 通用遮罩（舊版保留相容） */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     display: none;
     z-index: 1500;
 }
@@ -844,172 +1060,171 @@ body {
     display: block;
 }
 
-.product-card .btn-primary {
-    position: relative;
-    z-index: 10; /* 提升層級，確保不會被背景或其他裝飾遮住 */
-    cursor: pointer;
-}
 
-/* --- 產品詳情頁籤特效加強 --- */
-/* --- 產品詳情頁籤：恢復圖片樣式 --- */
-
-.tab-header {
-    display: flex;
-    justify-content: flex-start;
-    border-bottom: 2px solid #F5F5F5; /* 底部的淺灰長線 */
-    margin-bottom: 30px;
-    gap: 15px; /* 增加選項間距 */
-}
-
-.tab-btn {
-    background: none;
-    border: none;
-    padding: 15px 10px; /* 縮減內距，讓底線更精確 */
-    font-size: 1.15rem;
-    cursor: pointer;
-    color: #A0A0A0; /* 未選中時的淡灰色 */
-    font-weight: 500;
-    position: relative;
-    transition: all 0.3s ease;
-    font-family: 'Noto Sans TC', sans-serif;
-    margin-right: 20px;
-}
-
-/* 點擊後文字顏色加深為品牌橘 */
-.tab-btn.active {
-    color: var(--primary-orange);
-    font-weight: 700;
-}
-
-/* 實作圖片紅框中的「短底線」特效 */
-.tab-btn::after {
-    content: '';
-    position: absolute;
-    bottom: -2px; /* 剛好壓在 header 的灰色長線上 */
-    left: 50%;
-    transform: translateX(-50%); /* 確保底線水平居中 */
-    width: 0; /* 預設寬度為 0 */
-    height: 4px;
-    background: var(--primary-orange);
-    border-radius: 10px; /* 圓角效果，如圖示般溫馨 */
-    transition: width 0.3s ease; /* 寬度展開動畫 */
-}
-
-/* 選中狀態下，底線展開至固定長度 (可依喜好調整 px 值) */
-.tab-btn.active::after {
-    width: 150%; /* 展開至文字寬度，若要更短可設為 40px */
-}
-
-/* 懸停時文字微亮 */
-.tab-btn:hover {
-    color: var(--primary-orange);
-}
-
-
-/* 內容區塊的進場動畫 */
-.tab-content {
+/* ============================================================
+   15. Modal / Lightbox（檢驗報告放大）
+   ============================================================ */
+.modal {
     display: none;
-    padding: 20px 0;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.5s ease;
-}
-
-.tab-content.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* --- 食用建議區塊設計 --- */
-
-.feeding-guide-container {
-    padding: 20px 0;
-}
-
-/* 餵食方式圖解 */
-.method-steps {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 50px;
-    text-align: center;
-}
-
-.step-item { flex: 1; }
-
-.step-icon-bg {
-    width: 100px;
-    height: 100px;
-    background: #FFF;
-    border-radius: 50%;
-    margin: 0 auto 15px;
-    display: flex;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 20px rgba(255, 157, 66, 0.1);
-    border: 2px solid var(--secondary-yellow);
 }
 
-.step-icon-bg img { width: 60px; height: auto; }
-
-.step-arrow { color: var(--primary-orange); font-size: 1.2rem; opacity: 0.5; }
-
-/* 體重表格美化 */
-.table-wrapper {
-    background: #FFF;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    margin-bottom: 30px;
+.modal-content {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 15px;
+    display: block;
+    margin: auto;
 }
 
-.pawi-table { width: 100%; border-collapse: collapse; }
-
-.pawi-table th {
-    background: var(--secondary-yellow);
-    color: var(--text-color);
-    padding: 20px;
-    font-weight: 700;
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    color: var(--white);
+    cursor: pointer;
+    line-height: 1;
 }
 
-.pawi-table td {
-    padding: 15px 20px;
+#modalCaption {
     text-align: center;
-    border-bottom: 1px solid #FDF2E8;
-}
-
-/* 劑量膠囊樣式 */
-.qty-pill {
-    display: inline-block;
-    padding: 5px 15px;
-    background: #F0F0F0;
-    border-radius: 20px;
-    font-size: 0.95rem;
-    color: #777;
-}
-
-.qty-pill.orange {
-    background: var(--primary-orange);
-    color: #FFF;
-}
-
-/* 提示框樣式 */
-.feeding-notice-box {
-    background: #FFF9F2;
-    border-left: 5px solid var(--primary-orange);
-    padding: 20px;
-    border-radius: 0 15px 15px 0;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    color: var(--text-color);
+    color: #ccc;
+    margin-top: 15px;
+    font-size: 0.9rem;
 }
 
 
-.feeding-notice-box i { color: var(--primary-orange); font-size: 1.5rem; }
+/* ============================================================
+   16. 響應式（RWD）
+   ============================================================ */
+
+/* ── 平板（≤ 992px） ── */
+@media (max-width: 992px) {
+    .about-row {
+        gap: 40px;
+        text-align: center;
+    }
+
+    .image-wrapper::after {
+        display: none; /* 平板以下簡化裝飾色塊 */
+    }
+}
+
+/* ── 手機（≤ 768px） ── */
+@media (max-width: 768px) {
+
+    /* 漢堡按鈕顯示 */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* 側滑選單 */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background-color: var(--white);
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
+        z-index: 3000;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        padding-top: 80px;
+        visibility: hidden;
+    }
+
+    .nav-menu.active {
+        right: 0;
+        visibility: visible;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-menu ul li {
+        width: 100%;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    .nav-menu ul li a {
+        display: block;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    /* Logo 縮小 */
+    .brand-logo {
+        height: 60px;
+    }
+
+    /* Hero */
+    .hero-banner {
+        height: auto;
+        min-height: 320px;
+        padding: 40px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    /* 產品卡片：手機全寬 */
+    .product-card {
+        flex: 0 1 100%;
+        max-width: 400px;
+    }
+
+    /* 信任區塊：單欄 */
+    .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    /* 關於我們：上下排列 */
+    .about-col {
+        min-width: 100%;
+    }
+
+    /* 新聞列表：單欄 */
+    .news-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* 食用建議步驟：直排 */
+    .method-steps {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .step-arrow {
+        transform: rotate(90deg);
+    }
+
+    /* 頁籤文字縮小 */
+    .tab-btn {
+        font-size: 0.95rem;
+        padding: 12px 8px;
+        margin-right: 8px;
+    }
+
+    /* 報告區塊：直排 */
+    .report-summary-box {
+        flex-direction: column;
+        padding: 25px;
+        gap: 20px;
+    }
+
+    /* 分頁過濾器換行 */
+    .news-filter {
+        flex-wrap: wrap;
+    }
+}
