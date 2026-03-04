@@ -1,181 +1,62 @@
 /**
- * Pawi 網站主要互動邏輯
- * 維護者: 網頁開發工程師
+ * ============================================================
+ *  Pawi (派怡) 官方網站 — 核心互動邏輯
+ *  版本：V2.0  整理優化版
+ *
+ *  功能模組：
+ *    01. 漢堡選單（手機版側滑 + 遮罩）
+ *    02. 產品分類過濾（含淡入動畫）
+ *    03. 產品詳情頁籤切換（openTab）
+ *    04. 檢驗報告 Lightbox 放大預覽
+ * ============================================================
  */
 
-// --- 4. 產品分類過濾 (新增) ---
-const filterButtons = document.querySelectorAll('.filter-btn');
-const productCards = document.querySelectorAll('.product-card');
 
-// 優化後的產品分類過濾
-filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+/* ============================================================
+   01. 漢堡選單
+   - 點擊漢堡按鈕 → 側滑選單展開／收起
+   - 點擊遮罩 → 關閉選單
+   - 點擊選單內連結 → 自動關閉選單（手機版體驗優化）
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', function () {
 
-        const filterValue = btn.getAttribute('data-filter');
-
-        productCards.forEach(card => {
-            // 先將所有卡片透明度設為 0
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                    card.style.display = 'block';
-                    // 延遲一點點讓 display: block 生效後再執行透明度動畫
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                        card.style.transition = 'all 0.4s ease';
-                    }, 10);
-                } else {
-                    card.style.display = 'none';
-                }
-            }, 300); // 等待縮小動畫完成
-        });
-    });
-});
-
-/* 產品詳情頁 - 頁籤切換功能
- * @param {Event} evt - 點擊事件
- * @param {string} tabName - 要開啟的內容 ID
-*/
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-
-    // 1. 隱藏所有頁籤內容
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-        tabcontent[i].classList.remove("active");
-    }
-
-    // 2. 移除所有按鈕的 active 類別
-    tablinks = document.getElementsByClassName("tab-btn");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    // 3. 顯示當前選中的內容，並為按鈕加上 active
-    document.getElementById(tabName).style.display = "block";
-    setTimeout(function() {
-        document.getElementById(tabName).classList.add("active");
-    }, 10);
-    
-    evt.currentTarget.classList.add("active");
-}
-
-// 原本的 DOMContentLoaded 保留處理其他邏輯
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("Pawi 網頁載入成功！");
-    // 其他如行動版選單、捲動監聽等邏輯...
-});
-
-/**
- * Pawi 檢驗報告放大功能 (Lightbox)
- */
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // --- 1. Lightbox 放大功能修正 ---
-    const modal = document.getElementById("pawiLightbox");
-    const modalImg = document.getElementById("imgFullView");
-    const captionText = document.getElementById("modalCaption");
-    const closeBtn = document.querySelector(".modal-close");
-
-    // 抓取 report-preview-card 下的所有圖片
-    const reportImgs = document.querySelectorAll(".report-preview-card img");
-
-    if (modal && reportImgs.length > 0) {
-        reportImgs.forEach(img => {
-            img.addEventListener('click', function() {
-                modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
-                console.log("Lightbox 已開啟: " + this.src); // 偵錯用
-            });
-        });
-    }
-
-    // 關閉邏輯
-    if (closeBtn) {
-        closeBtn.onclick = () => modal.style.display = "none";
-    }
-    
-    if (modal) {
-        modal.onclick = (e) => {
-            if (e.target === modal) modal.style.display = "none";
-        };
-    }
-
-    // --- 2. 頁籤切換邏輯 (保留全域 openTab 以供 HTML onclick 呼叫) ---
-});
-
-// 頁籤函式放在全域，確保 HTML onclick="openTab(...)" 找得到
-function openTab(evt, tabName) {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-        tabcontent[i].classList.remove("active");
-    }
-    tablinks = document.getElementsByClassName("tab-btn");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-    const target = document.getElementById(tabName);
-    if (target) {
-        target.style.display = "block";
-        setTimeout(() => target.classList.add("active"), 10);
-    }
-    evt.currentTarget.classList.add("active");
-}
-
-/**
- * Pawi (派怡) 官方網站核心互動邏輯 - 漢堡選單優化版
- */
-
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
+    const menuToggle  = document.getElementById('menuToggle');
+    const navMenu     = document.getElementById('navMenu');
     const menuOverlay = document.getElementById('menuOverlay');
-    const body = document.body;
 
-    // 開關選單函式
+    /**
+     * 切換選單開／關狀態
+     */
     function toggleMenu() {
         if (!navMenu || !menuOverlay) return;
-        
+
         const isActive = navMenu.classList.toggle('active');
         menuOverlay.classList.toggle('active');
-        body.classList.toggle('menu-open');
+        document.body.classList.toggle('menu-open');
 
-        // 切換圖示 (fa-bars 變 fa-times)
+        // 切換漢堡圖示（fa-bars ↔ fa-times）
         const icon = menuToggle ? menuToggle.querySelector('i') : null;
         if (icon) {
-            if (isActive) {
-                icon.classList.replace('fa-bars', 'fa-times');
-            } else {
-                icon.classList.replace('fa-times', 'fa-bars');
-            }
+            icon.classList.toggle('fa-bars',  !isActive);
+            icon.classList.toggle('fa-times',  isActive);
         }
     }
 
-    // 綁定點擊事件
+    // 漢堡按鈕點擊
     if (menuToggle) {
-        menuToggle.addEventListener('click', function(e) {
+        menuToggle.addEventListener('click', function (e) {
             e.preventDefault();
             toggleMenu();
         });
     }
 
-    // 點擊遮罩關閉選單
+    // 遮罩點擊 → 關閉
     if (menuOverlay) {
         menuOverlay.addEventListener('click', toggleMenu);
     }
 
-    // 點擊選單內的連結後自動關閉 (便利行動版體驗)
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
+    // 選單內連結點擊 → 自動關閉
+    document.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', () => {
             if (navMenu && navMenu.classList.contains('active')) {
                 toggleMenu();
@@ -183,42 +64,134 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- 保留原有產品分類過濾功能 ---
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const productCards = document.querySelectorAll('.product-card');
 
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            const filterValue = this.getAttribute('data-filter') || 'all';
-            productCards.forEach(card => {
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+    /* ==========================================================
+       02. 產品分類過濾
+       - 點擊分類按鈕，對應 data-category 的卡片顯示
+       - 切換時帶有縮放 + 淡入動畫
+       ========================================================== */
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const productCards  = document.querySelectorAll('.product-card');
+
+    if (filterButtons.length > 0 && productCards.length > 0) {
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+
+                // 更新按鈕 active 狀態
+                filterButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter') || 'all';
+
+                // Step 1：所有卡片先縮小淡出
+                productCards.forEach(card => {
+                    card.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+                    card.style.opacity    = '0';
+                    card.style.transform  = 'scale(0.95)';
+                });
+
+                // Step 2：等待縮小動畫結束後，切換顯示並淡入
+                setTimeout(() => {
+                    productCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        const isVisible = (filterValue === 'all' || category === filterValue);
+
+                        card.style.display = isVisible ? 'flex' : 'none';
+
+                        if (isVisible) {
+                            // 稍微延遲讓 display:flex 生效後再執行動畫
+                            requestAnimationFrame(() => {
+                                requestAnimationFrame(() => {
+                                    card.style.opacity   = '1';
+                                    card.style.transform = 'scale(1)';
+                                });
+                            });
+                        }
+                    });
+                }, 260); // 配合縮小動畫時間
+
             });
         });
-    });
-});
+    }
 
-// 全域頁籤切換 (產品詳情頁使用) - 保持不變
+
+    /* ==========================================================
+       04. 檢驗報告 Lightbox 放大預覽
+       - 點擊 .report-preview-card 內的圖片 → 展開 Modal
+       - 點擊關閉按鈕或背景 → 關閉 Modal
+       ========================================================== */
+    const modal     = document.getElementById('pawiLightbox');
+    const modalImg  = document.getElementById('imgFullView');
+    const modalCapt = document.getElementById('modalCaption');
+    const closeBtn  = document.querySelector('.modal-close');
+    const reportImgs = document.querySelectorAll('.report-preview-card img');
+
+    if (modal && reportImgs.length > 0) {
+
+        reportImgs.forEach(img => {
+            img.addEventListener('click', function () {
+                modalImg.src        = this.src;
+                modalCapt.innerHTML = this.alt;
+                modal.style.display = 'flex';
+            });
+        });
+
+        // 關閉按鈕
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+
+        // 點擊 Modal 背景關閉
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 按 Esc 鍵關閉
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+}); // END DOMContentLoaded
+
+
+/* ============================================================
+   03. 產品詳情頁籤切換（openTab）
+   - 定義在全域，供 HTML 中的 onclick="openTab(event, 'tabId')" 呼叫
+   - @param {Event}  evt     - 點擊事件物件
+   - @param {string} tabName - 要顯示的頁籤內容區塊 ID
+   ============================================================ */
 function openTab(evt, tabName) {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-        tabcontent[i].classList.remove("active");
-    }
-    tablinks = document.getElementsByClassName("tab-btn");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
+
+    // 隱藏所有頁籤內容
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.style.display = 'none';
+        content.classList.remove('active');
+    });
+
+    // 移除所有頁籤按鈕的 active 狀態
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    // 顯示目標頁籤，並加上 active（延遲觸發 CSS 過渡動畫）
     const target = document.getElementById(tabName);
     if (target) {
-        target.style.display = "block";
-        setTimeout(() => target.classList.add("active"), 10);
+        target.style.display = 'block';
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                target.classList.add('active');
+            });
+        });
     }
-    evt.currentTarget.classList.add("active");
+
+    // 為當前按鈕加上 active
+    evt.currentTarget.classList.add('active');
 }
