@@ -76,7 +76,9 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 100 !important;   /* !important 確保覆蓋各頁 inline style */
+    display: flex;
+    align-items: center;
 }
 
 .navbar .container {
@@ -128,17 +130,12 @@ body {
 /* ============================================================
    03. 漢堡選單 & 遮罩層
    z-index 層級規劃：
-     頁面內容            z-index: 預設
-     navbar（sticky）    z-index: 100
-     遮罩層              z-index: 200   ← 蓋住頁面內容，但不蓋 navbar
-     側滑選單            z-index: 300   ← 最上層，確保可操作
-     漢堡按鈕            z-index: 301   ← 與選單同層，隨時可點擊
+     頁面一般內容        z-index: 預設
+     navbar（sticky）    z-index: 100  （!important 覆蓋 inline style）
+     遮罩層              z-index: 500  ← 蓋住頁面內容與 navbar 背景
+     側滑選單            z-index: 600  ← 在遮罩之上，內容可操作
+     漢堡按鈕            z-index: 601  ← 永遠可點擊
    ============================================================ */
-
-/* 導覽列層級（覆蓋 index.html inline style） */
-.navbar {
-    z-index: 100;
-}
 
 /* 漢堡按鈕（桌機隱藏，手機顯示） */
 .menu-toggle {
@@ -149,11 +146,11 @@ body {
     color: var(--primary-orange);
     cursor: pointer;
     position: relative;
-    z-index: 301;   /* 最上層，永遠可點擊 */
+    z-index: 601;
     padding: 10px;
 }
 
-/* 半透明遮罩：只蓋住頁面內容，不蓋 navbar */
+/* 半透明遮罩 */
 .menu-overlay {
     position: fixed;
     top: 0;
@@ -161,8 +158,7 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.45);
-    z-index: 200;
-    /* 預設：完全透明 + 不可點擊，用 opacity/pointer-events 控制 */
+    z-index: 500;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -170,15 +166,15 @@ body {
 
 .menu-overlay.active {
     opacity: 1;
-    pointer-events: auto;   /* 開啟後才接受點擊（用於點遮罩關閉） */
+    pointer-events: auto;
 }
 
 /* 側滑選單容器（手機版，預設在右側螢幕外） */
 .nav-menu {
-    /* 桌機版樣式在下方 RWD 區塊覆寫 */
+    /* 桌機版樣式不變，手機版在 RWD 區塊設定 */
 }
 
-/* 選單開啟時：鎖定 body 捲動，防止背景滾動 */
+/* 選單開啟時：鎖定 body 捲動 */
 body.menu-open {
     overflow: hidden;
 }
@@ -1147,10 +1143,10 @@ body.menu-open {
         height: 100vh;
         background-color: var(--white);
         box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
-        z-index: 300;           /* 遮罩(200)之上，確保選單內容可操作 */
+        z-index: 600;
         transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         padding-top: 70px;
-        overflow-y: auto;       /* 選單項目過多時可捲動 */
+        overflow-y: auto;
         visibility: hidden;
     }
 
